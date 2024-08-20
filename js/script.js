@@ -1,14 +1,88 @@
+
+// Crear un canal de comunicación
+const channel = new BroadcastChannel("bibleVerseChannel");
+
+// Función para enviar el versículo seleccionado
+function sendVerse(verse) {
+    // Enviar el versículo a través del canal
+    channel.postMessage(verse || ' ');
+}
+
+
+// Función para mostrar u ocultar la lista de autocompletado
+function showSuggestions(suggestions) {
+    const autocompleteList = $('#autocomplete-list');
+    if (suggestions.length > 0) {
+        autocompleteList.show(); // Mostrar la lista si hay sugerencias
+    } else {
+        autocompleteList.hide(); // Ocultar la lista si no hay sugerencias
+    }
+
+    autocompleteList.empty(); // Limpiar lista de sugerencias
+    suggestions.forEach(function (suggestion) {
+        const listItem = $('<div class="list-item">').text(suggestion.name); // Acceder al nombre del libro
+        listItem.on('click', function () {
+            $('#reference').val(suggestion.name + ' '); // Usar el nombre del libro como sugerencia
+            autocompleteList.hide(); // Ocultar la lista después de seleccionar una sugerencia
+        });
+        autocompleteList.append(listItem);
+    });
+}
+
+
+// Función para formatear el verso con la tipografía seleccionada
+function formatVerse(book, chapter, verse, version) {
+    const verseText = book.chapters[chapter - 1].verses[verse - 1].text;
+    const citation = '<strong>' + chapter + ':' + verse + ' ' + book.name + ' ' + version + '</strong>';
+    const fullVerse = '<strong>' + chapter + ':' + verse + ' ' + book.name + ' ' + version + '</strong>' + ' - "' + verseText + '"';
+    return '<div class="verse my-2">' + fullVerse + '</div>';
+}
+
+// Función para mostrar el versículo
+function showVerse(book, chapter, verse, version) {
+    const verseText = formatVerse(book, chapter, verse, version);
+    $('#result').html(verseText);
+    $('#reference').val(book.name + ' ' + chapter + ':' + verse);
+}
+
+
+
+
+// Función para obtener los datos de la versión seleccionada
+function getVersionData(version) {
+    switch (version) {
+        case 'LBLA':
+            return LBLA;
+        case 'NVI':
+            return NVI;
+        case 'RV1960':
+            return RV1960;
+        case 'TLA':
+            return TLA;
+        case 'DHH':
+            return DHH;
+        case 'NTV':
+            return NTV;
+        default:
+            return []; // Devolver un array vacío si la versión no es válida
+    }
+}
+
+
+// Función para limpiar caracteres especiales
+function cleanString(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Eliminar acentos
+        .replace(/[^a-z0-9]/gi, '') // Eliminar caracteres especiales
+        .toLowerCase(); // Convertir a minúsculas
+}
+
+
 $(async function () {
-    // Crear un canal de comunicación
-    const channel = new BroadcastChannel("bibleVerseChannel");
+
     // Variable global para almacenar el capítulo actual
     let currentChapter = 1;
+    let currentVerse = 1;
 
-    // Función para enviar el versículo seleccionado
-    function sendVerse(verse) {
-        // Enviar el versículo a través del canal
-        channel.postMessage(verse || ' ');
-    }
 
     /// Ocultar la lista de autocompletado al cargar la página
     $('#autocomplete-list').hide();
@@ -16,7 +90,7 @@ $(async function () {
     // Autocompletado para el campo de entrada de referencia
     $('#reference').on('input', function () {
         const version = $('#version').val();
-        const reference = $(this).val().toLowerCase(); // Convertir la entrada del usuario a minúsculas
+        const reference = cleanString($(this).val()); // Limpiar y convertir la entrada del usuario a minúsculas
         let suggestions = [];
 
         // Obtener los nombres de los libros de la versión seleccionada
@@ -24,7 +98,7 @@ $(async function () {
 
         // Filtrar sugerencias para encontrar coincidencias con la entrada del usuario
         suggestions = books.filter(book => {
-            const bookName = book.name.toLowerCase();
+            const bookName = cleanString(book.name); // Limpiar y convertir el nombre del libro a minúsculas
             // Buscar coincidencias con la entrada del usuario en el nombre del libro
             return bookName.includes(reference);
         });
@@ -32,43 +106,24 @@ $(async function () {
         showSuggestions(suggestions);
     });
 
-    // Función para mostrar u ocultar la lista de autocompletado
-    function showSuggestions(suggestions) {
-        const autocompleteList = $('#autocomplete-list');
-        if (suggestions.length > 0) {
-            autocompleteList.show(); // Mostrar la lista si hay sugerencias
-        } else {
-            autocompleteList.hide(); // Ocultar la lista si no hay sugerencias
-        }
-
-        autocompleteList.empty(); // Limpiar lista de sugerencias
-        suggestions.forEach(function (suggestion) {
-            const listItem = $('<div class="list-item">').text(suggestion.name); // Acceder al nombre del libro
-            listItem.on('click', function () {
-                $('#reference').val(suggestion.name + ' '); // Usar el nombre del libro como sugerencia
-                autocompleteList.hide(); // Ocultar la lista después de seleccionar una sugerencia
-            });
-            autocompleteList.append(listItem);
-        });
-    }
 
     $('#searchBtn').on('click', function () {
-        const version = $('#version').val();
-        const reference = $('#reference').val().toLowerCase(); // Convertir la referencia a minúsculas para una comparación más fácil
+        const version = $('#version').val();  // Obtiene la versión seleccionada
+        const reference = $('#reference').val(); // Obtiene la referencia introducida por el usuario
 
-        // Obtener los datos del libro seleccionado
+        // Obtener los datos del libro seleccionado basado en la versión
         const bookData = getVersionData(version);
 
         // Extraer el nombre del libro, el número del capítulo y el rango de versículos de la referencia
-        const parts = reference.split(' '); // Separar la referencia en partes
-        const bookName = parts.slice(0, -1).join(' '); // Unir las partes del nombre del libro
-        const chapterVerse = parts.slice(-1)[0].split(':'); // Separar el capítulo y el rango de versículos
+        const parts = reference.split(' '); // Separar la referencia en partes (nombre del libro y capítulo/versículo)
+        const bookName = cleanString(parts.slice(0, -1).join(' ')); // Obtiene el nombre del libro y lo limpia
+        const chapterVerse = parts.slice(-1)[0].split(':'); // Separa el capítulo y el rango de versículos
 
         console.log('bookName:', bookName);
         console.log('chapterVerse:', chapterVerse);
 
         // Buscar el libro en los datos
-        const selectedBook = bookData.find(book => book.name.toLowerCase() === bookName);
+        const selectedBook = bookData.find(book => cleanString(book.name) === bookName);
 
         // Verificar si se encontró el libro y si se especificó un capítulo
         if (selectedBook) {
@@ -127,33 +182,7 @@ $(async function () {
         $('#result').html('Versículo no encontrado');
     });
 
-    // Función para formatear el verso con la tipografía seleccionada
-    function formatVerse(book, chapter, verse, version) {
-        const verseText = book.chapters[chapter - 1].verses[verse - 1].text;
-        const citation = '<strong>' + chapter + ':' + verse + ' ' + book.name + ' ' + version + '</strong>';
-        const fullVerse = '<strong>' + chapter + ':' + verse + ' ' + book.name + ' ' + version + '</strong>' + ' - "' + verseText + '"';
-        return '<div class="verse my-2">' + fullVerse + '</div>';
-    }
 
-    // Función para obtener los datos de la versión seleccionada
-    function getVersionData(version) {
-        switch (version) {
-            case 'LBLA':
-                return LBLA;
-            case 'NVI':
-                return NVI;
-            case 'RV1960':
-                return RV1960;
-            case 'TLA':
-                return TLA;
-            case 'DHH':
-                return DHH;
-            case 'NTV':
-                return NTV;
-            default:
-                return []; // Devolver un array vacío si la versión no es válida
-        }
-    }
 
     // Cambiar la tipografía del verso cuando se selecciona una nueva opción en el menú desplegable
     $('#fontSelect').change(function () {
@@ -197,7 +226,7 @@ $(async function () {
         }
     });
 
-// Manejar el clic en el botón "Siguiente Capítulo"
+    // Manejar el clic en el botón "Siguiente Capítulo"
     $('#nextChapterBtn').on('click', function () {
         const version = $('#version').val();
         const reference = $('#reference').val().toLowerCase(); // Convertir la referencia a minúsculas para una comparación más fácil
@@ -229,6 +258,68 @@ $(async function () {
             alert('No hay más capítulos disponibles');
         }
     });
+
+    // Función para manejar el clic en el botón "Versículo Anterior"
+    $('#prevVerseBtn').on('click', function () {
+        const version = $('#version').val();
+        const reference = $('#reference').val();
+        const bookData = getVersionData(version);
+        const parts = reference.split(' ');
+        const bookName = cleanString(parts.slice(0, -1).join(' '));
+        const chapterVerse = parts.slice(-1)[0].split(':');
+        const book = bookData.find(b => cleanString(b.name) === bookName);
+
+        if (book) {
+            if (currentVerse > 1) {
+                currentVerse--;
+            } else if (currentChapter > 1) {
+                currentChapter--;
+                currentVerse = book.chapters[currentChapter - 1].verses.length;
+            } else {
+                alert('Este es el primer versículo del libro.');
+                return;
+            }
+            showVerse(book, currentChapter, currentVerse, version);
+        }
+    });
+
+    // Función para manejar el clic en el botón "Siguiente Versículo"
+    $('#nextVerseBtn').on('click', function () {
+        const version = $('#version').val();
+        const reference = $('#reference').val();
+        const bookData = getVersionData(version);
+        const parts = reference.split(' ');
+        const bookName = cleanString(parts.slice(0, -1).join(' '));
+        const chapterVerse = parts.slice(-1)[0].split(':');
+        const book = bookData.find(b => cleanString(b.name) === bookName);
+
+        if (book) {
+            if (currentVerse < book.chapters[currentChapter - 1].verses.length) {
+                currentVerse++;
+            } else if (currentChapter < book.chapters.length) {
+                currentChapter++;
+                currentVerse = 1;
+            } else {
+                alert('Este es el último versículo del libro.');
+                return;
+            }
+            showVerse(book, currentChapter, currentVerse, version);
+            let verseText = $('.verse').text()
+            console.log("verso----------", $('.verse').text())
+
+            $('.verse').addClass('selected'); // Agregar la clase "selected" al verso seleccionado
+            $('.verse').css('background-color', 'yellow'); // Cambiar el color de fondo a amarillo
+            // Mostrar el verso en verso.html
+            $('#verse-citation').html($('.verse').find('.verse-citation').html());
+            $('#verse-text').html($('.verse').find('.verse-text').html());
+
+            // Enviar el versículo seleccionado a través del canal
+            sendVerse(verseText);
+            localStorage.setItem('selectedVerse', verseText); // Almacenar el verso en el almacenamiento local
+
+        }
+    });
+
 
     // Manejar el clic en un verso
     $(document).on('click', '.verse', function () {
