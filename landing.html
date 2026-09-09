@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BibleStream Studio - Plugin de Biblia para OBS Studio | Open Source</title>
+    <meta name="description" content="El plugin más rápido, elegante y moderno para proyectar versículos bíblicos en OBS Studio. Carga ultraligera, 6 versiones bíblicas, fondos personalizados y 100% offline.">
+
+    <link rel="stylesheet" href="css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="fonts/Montserrat.css">
+    <link rel="stylesheet" href="fonts/Roboto.css">
+    <link rel="stylesheet" href="css/landing.css?v=3.0">
+</head>
+<body>
+
+    <!-- Navegación Superior -->
+    <nav class="navbar-landing">
+        <div class="container-landing">
+            <a href="landing.html" class="nav-brand">
+                <img src="img/logo.svg" alt="BibleStream Studio Logo">
+                <span class="nav-brand-text">BibleStream <span class="nav-brand-accent">Studio</span></span>
+            </a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#caracteristicas"><i class="bi bi-grid"></i> Características</a></li>
+                <li><a href="#instalacion"><i class="bi bi-gear"></i> Instalación</a></li>
+                <li><a href="wiki.html" class="nav-link-highlight"><i class="bi bi-book"></i> Wiki / Guía</a></li>
+                <li><a href="#ofrendar"><i class="bi bi-heart"></i> Ofrendar</a></li>
+                <li><a href="#contacto"><i class="bi bi-envelope"></i> Contacto</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="demo.html" class="btn-outline-custom nav-btn" target="_blank">
+                    <i class="bi bi-play-circle"></i> <span>Probar Demo</span>
+                </a>
+                <a href="#descargar" class="btn-primary-custom nav-btn">
+                    <i class="bi bi-download"></i> <span>Descargar</span>
+                </a>
+            </div>
+
+            <button class="nav-toggle-btn" id="navToggleBtn" aria-label="Abrir menú de navegación">
+                <i class="bi bi-list"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <div class="container-landing">
+            <div class="hero-badge">
+                <i class="bi bi-check-circle-fill"></i> 100% Gratuito y Open Source para Iglesias
+            </div>
+
+            <h1 class="hero-title">
+                Proyecta las Escrituras en OBS<br>
+                con <span class="gradient-text">Calidad de Televisión</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                El plugin bíblico definitivo para transmisiones cristianas. Control total desde un panel interno (Dock), 6 versiones bíblicas offline, fondos personalizados y diseño en tercio inferior de alto contraste.
+            </p>
+
+            <div class="hero-cta-group" id="descargar">
+                <a href="https://github.com/mikerosasdev98/Bible-obs-plugin/archive/refs/heads/main.zip" class="btn-primary-custom" style="font-size: 16px; padding: 14px 32px;">
+                    <i class="bi bi-cloud-arrow-down-fill"></i> Descargar Plugin (ZIP)
+                </a>
+                <a href="wiki.html" class="btn-outline-custom" style="font-size: 16px; padding: 14px 28px;">
+                    <i class="bi bi-book-half"></i> Ver Wiki y Manual
+                </a>
+            </div>
+
+            <!-- Mockup de Demostración Visual -->
+            <div class="mockup-container">
+                <div class="mockup-inner">
+                    <div class="mockup-header">
+                        <div class="mockup-dots">
+                            <span class="mockup-dot" style="background: #ef4444;"></span>
+                            <span class="mockup-dot" style="background: #f59e0b;"></span>
+                            <span class="mockup-dot" style="background: #10b981;"></span>
+                        </div>
+                        <span style="font-size: 11.5px; color: var(--text-muted); font-weight: 600;">OBS Studio 30.x — Browser Source Live Preview</span>
+                        <span style="font-size: 11px; background: rgba(16, 185, 129, 0.2); color: #34d399; padding: 2px 8px; border-radius: 9999px; font-weight: 700;"><i class="bi bi-broadcast me-1"></i> EN VIVO</span>
+                    </div>
+
+                    <div class="mockup-screen">
+                        <!-- Lower Third Proyectado -->
+                        <div class="demo-lower-third">
+                            <div class="demo-citation">
+                                <span>Juan 3:16</span>
+                                <span class="demo-badge">RV1960</span>
+                            </div>
+                            <div class="demo-verse">
+                                «Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna.»
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Características Destacadas -->
+    <section class="features-section" id="caracteristicas">
+        <div class="container-landing">
+            <div class="section-header">
+                <h2 class="section-title">Diseñado para la Adoración y la Excelencia</h2>
+                <p class="section-desc">Creado por y para operadores de streaming que necesitan velocidad, simplicidad y cero distracciones durante el servicio.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+                    <h3 class="feature-title">Ultraligero y Rápido</h3>
+                    <p class="feature-text">Optimizado con carga diferida. Ahorra más de 40 MB de memoria RAM en OBS en comparación con otros plugins pesados.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="bi bi-journal-bookmark-fill"></i></div>
+                    <h3 class="feature-title">6 Versiones Bíblicas Offline</h3>
+                    <p class="feature-text">Incluye Reina-Valera 1960, NVI, LBLA, NTV, TLA y Dios Habla Hoy completas sin requerir conexión a internet. <a href="#versiones" style="color: var(--amber-400); text-decoration: none; font-weight: 600; display: block; margin-top: 8px;">Explorar traducciones <i class="bi bi-arrow-right-short"></i></a></p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="bi bi-cursor-fill"></i></div>
+                    <h3 class="feature-title">Abreviaturas Inteligentes</h3>
+                    <p class="feature-text">Escribe rápido mientras el pastor predica: reconoce al instante <code>Jn 3:16</code>, <code>Gn 1:1</code>, <code>Sal 23</code>, <code>1 Co 13:4-8</code> y más.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="bi bi-palette-fill"></i></div>
+                    <h3 class="feature-title">Fondos y Temas Propios</h3>
+                    <p class="feature-text">Sube tus propias imágenes o elige degradados elegantes con slider de contraste para garantizar que el texto siempre sea 100% legible.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="bi bi-keyboard-fill"></i></div>
+                    <h3 class="feature-title">Atajos de Teclado en Vivo</h3>
+                    <p class="feature-text">Pasa de versículo con las flechas <code>[←]</code> y <code>[→]</code> y oculta la pantalla al instante con la tecla <code>[Esc]</code>.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="bi bi-moon-stars-fill"></i></div>
+                    <h3 class="feature-title">Modo Claro y Oscuro</h3>
+                    <p class="feature-text">Interfaz minimalista adaptable a la iluminación de tu cabina técnica con un solo clic.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Versiones Bíblicas Disponibles -->
+    <section class="bibles-section" id="versiones">
+        <div class="container-landing">
+            <div class="section-header">
+                <div class="hero-badge" style="margin-bottom: 14px;">
+                    <i class="bi bi-journal-bookmark-fill"></i> Traducciones Canónicas en Español
+                </div>
+                <h2 class="section-title">6 Versiones Bíblicas Disponibles</h2>
+                <p class="section-desc">Todas las traducciones vienen preinstaladas y se ejecutan 100% de manera local en tu equipo, sin depender de conexiones a internet ni sufrir caídas durante el culto.</p>
+            </div>
+
+            <div class="bibles-grid">
+                <!-- RV1960 -->
+                <div class="bible-card">
+                    <div>
+                        <div class="bible-card-header">
+                            <span class="bible-code-badge">RV1960</span>
+                            <span class="bible-status-badge"><i class="bi bi-wifi-off"></i> 100% Offline</span>
+                        </div>
+                        <h3 class="bible-card-title">Reina-Valera 1960</h3>
+                        <p class="bible-card-desc">
+                            La versión clásica por excelencia en el mundo hispano. Conserva la belleza lírica, solemnidad litúrgica y fidelidad formal más reconocida por la congregación.
+                        </p>
+                    </div>
+                    <div class="bible-card-footer">
+                        <span><i class="bi bi-layers me-1"></i> Traducción Clásica / Formal</span>
+                        <span style="color: var(--amber-400); font-weight: 700;">Predeterminada</span>
+                    </div>
+                </div>
+
+                <!-- NVI -->
+                <div class="bible-card">
+                    <div>
+                        <div class="bible-card-header">
+                            <span class="bible-code-badge">NVI</span>
+                            <span class="bible-status-badge"><i class="bi bi-wifi-off"></i> 100% Offline</span>
+                        </div>
+                        <h3 class="bible-card-title">Nueva Versión Internacional</h3>
+                        <p class="bible-card-desc">
+                            El estándar moderno más equilibrado. Traducida directamente de los manuscritos hebreos, arameos y griegos con un balance magistral entre exactitud y comprensión contemporánea.
+                        </p>
+                    </div>
+                    <div class="bible-card-footer">
+                        <span><i class="bi bi-layers me-1"></i> Equivalencia Dinámica y Formal</span>
+                        <span style="color: #38bdf8; font-weight: 600;">Moderna</span>
+                    </div>
+                </div>
+
+                <!-- LBLA -->
+                <div class="bible-card">
+                    <div>
+                        <div class="bible-card-header">
+                            <span class="bible-code-badge">LBLA</span>
+                            <span class="bible-status-badge"><i class="bi bi-wifi-off"></i> 100% Offline</span>
+                        </div>
+                        <h3 class="bible-card-title">La Biblia de las Américas</h3>
+                        <p class="bible-card-desc">
+                            Reconocida por su rigor académico y precisión literal extrema. Ideal para sermones expositivos y estudios bíblicos profundos donde cada palabra original cuenta.
+                        </p>
+                    </div>
+                    <div class="bible-card-footer">
+                        <span><i class="bi bi-layers me-1"></i> Rigor Literal y Estudio Expositivo</span>
+                        <span style="color: #a78bfa; font-weight: 600;">Literal</span>
+                    </div>
+                </div>
+
+                <!-- NTV -->
+                <div class="bible-card">
+                    <div>
+                        <div class="bible-card-header">
+                            <span class="bible-code-badge">NTV</span>
+                            <span class="bible-status-badge"><i class="bi bi-wifi-off"></i> 100% Offline</span>
+                        </div>
+                        <h3 class="bible-card-title">Nueva Traducción Viviente</h3>
+                        <p class="bible-card-desc">
+                            Lenguaje vibrante, fluido y directo. Transmite el significado original con frescura y naturalidad, perfecta para lectura pública y comprensión inmediata en stream.
+                        </p>
+                    </div>
+                    <div class="bible-card-footer">
+                        <span><i class="bi bi-layers me-1"></i> Fluidez y Claridad Inmediata</span>
+                        <span style="color: #fb923c; font-weight: 600;">Contemporánea</span>
+                    </div>
+                </div>
+
+                <!-- TLA -->
+                <div class="bible-card">
+                    <div>
+                        <div class="bible-card-header">
+                            <span class="bible-code-badge">TLA</span>
+                            <span class="bible-status-badge"><i class="bi bi-wifi-off"></i> 100% Offline</span>
+                        </div>
+                        <h3 class="bible-card-title">Traducción en Lenguaje Actual</h3>
+                        <p class="bible-card-desc">
+                            Pensada para eliminar barreras léxicas. Emplea un vocabulario sencillo y accesible para niños, jóvenes, nuevos creyentes y transmisiones misioneras familiares.
+                        </p>
+                    </div>
+                    <div class="bible-card-footer">
+                        <span><i class="bi bi-layers me-1"></i> Vocabulario Simple y Juvenil</span>
+                        <span style="color: #4ade80; font-weight: 600;">Pedagógica</span>
+                    </div>
+                </div>
+
+                <!-- DHH -->
+                <div class="bible-card">
+                    <div>
+                        <div class="bible-card-header">
+                            <span class="bible-code-badge">DHH</span>
+                            <span class="bible-status-badge"><i class="bi bi-wifi-off"></i> 100% Offline</span>
+                        </div>
+                        <h3 class="bible-card-title">Dios Habla Hoy</h3>
+                        <p class="bible-card-desc">
+                            Versión de las Sociedades Bíblicas Unidas con estilo claro y cotidiano en español estándar latinoamericano. Connotación ecuménica y amplia aceptación comunitaria.
+                        </p>
+                    </div>
+                    <div class="bible-card-footer">
+                        <span><i class="bi bi-layers me-1"></i> Español Estándar de América Latina</span>
+                        <span style="color: #f472b6; font-weight: 600;">Popular</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guía de Instalación Rápida en OBS -->
+    <section class="install-section" id="instalacion">
+        <div class="container-landing">
+            <div class="section-header">
+                <h2 class="section-title">Instalación en OBS en 2 Minutos</h2>
+                <p class="section-desc">Sigue estos dos sencillos pasos para tener el panel de control y la superposición listos en tu transmisión.</p>
+            </div>
+
+            <div class="install-tabs">
+                <button class="install-tab-btn active" id="tabDockBtn" onclick="switchInstallTab('dock')">
+                    Paso 1: Panel de Control (Dock)
+                </button>
+                <button class="install-tab-btn" id="tabOverlayBtn" onclick="switchInstallTab('overlay')">
+                    Paso 2: Superposición (Browser Source)
+                </button>
+            </div>
+
+            <!-- Paso 1: Dock -->
+            <div class="install-card" id="installDockCard">
+                <div class="step-item">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h4>Abre OBS Studio y ve al menú de Docks</h4>
+                        <p>En el menú superior de OBS, haz clic en <strong>Docks (Paneles) <i class="bi bi-chevron-right"></i> Custom Browser Docks (Paneles de navegador personalizados)</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h4>Asigna el nombre y la dirección del Dock</h4>
+                        <p>Escribe el nombre <code>BibleStream Studio</code> y en el campo URL ingresa la ruta local de tu archivo <code>index.html</code>:</p>
+                        <div class="code-box">
+                            <span id="codeDock">file:///Ruta/Hacia/Bible-obs-plugin/index.html</span>
+                            <button class="copy-btn" onclick="copyCode('codeDock')" title="Copiar"><i class="bi bi-clipboard"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h4>Aplica y Acopla el Panel</h4>
+                        <p>Haz clic en <strong>Aplicar</strong>. Se abrirá una ventana flotante con el buscador de la Biblia. Arrástrala y acóplala en cualquier lado de la interfaz de OBS Studio.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 2: Overlay -->
+            <div class="install-card" id="installOverlayCard" style="display: none;">
+                <div class="step-item">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h4>Añade una fuente de Navegador en tu Escena</h4>
+                        <p>En el panel de <strong>Fuentes (Sources)</strong> de tu escena de OBS, haz clic en el botón <strong><code>+</code> <i class="bi bi-chevron-right"></i> Navegador (Browser)</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h4>Selecciona el archivo verso.html y resolución</h4>
+                        <p>Marca la casilla <strong>Archivo Local (Local File)</strong> y selecciona tu archivo <code>verso.html</code>. Establece las dimensiones recomendadas:</p>
+                        <div class="code-box">
+                            <span>Ancho: <strong>1920</strong> &nbsp;|&nbsp; Alto: <strong>1080</strong> &nbsp;|&nbsp; CSS: <em>Vacío</em></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h4>¡Listo para transmitir!</h4>
+                        <p>El fondo es 100% transparente. Cada vez que selecciones un versículo en el Dock, se animará suavemente sobre tus cámaras o diapositivas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4" style="margin-top: 30px; text-align: center;">
+                <a href="wiki.html" style="color: var(--amber-400); font-weight: 700; text-decoration: none; font-size: 15px;">
+                    ¿Tienes dudas o buscas la guía completa de atajos y personalización? <i class="bi bi-arrow-right-circle-fill ms-1"></i> Consulta la Wiki Oficial
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Módulo de Ofrendas -->
+    <section class="donation-section" id="ofrendar">
+        <div class="container-landing">
+            <div class="donation-card">
+                <span class="hero-badge" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.4); color: var(--amber-400);">
+                    <i class="bi bi-heart-fill"></i> Ofrenda y Apoyo al Proyecto
+                </span>
+
+                <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 12px;">Ofrenda para el Desarrollo de BibleStream Studio</h2>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 24px;">
+                    Este plugin es <strong>100% gratuito y de código abierto</strong> para bendición de tu iglesia. Si este ministerio te es útil y deseas sembrar una ofrenda voluntaria para sustentar las horas de desarrollo y mantenimiento continuo, puedes hacerlo aquí:
+                </p>
+
+                <!-- Selector de Montos -->
+                <div class="donation-pill-grid">
+                    <button class="donation-pill" onclick="selectAmount(10)">$10 MXN</button>
+                    <button class="donation-pill" onclick="selectAmount(20)">$20 MXN</button>
+                    <button class="donation-pill active" onclick="selectAmount(50)">$50 MXN</button>
+                    <button class="donation-pill" onclick="selectAmount(100)">$100 MXN</button>
+                    <button class="donation-pill" onclick="selectAmount(200)">$200 MXN</button>
+                    <button class="donation-pill" onclick="selectAmount(500)">$500 MXN</button>
+                </div>
+
+                <!-- Monto Personalizado -->
+                <input type="number" id="customAmountInput" class="custom-amount-input" placeholder="Otro monto de ofrenda (MXN)..." min="5" value="50" oninput="updateCustomAmount(this.value)">
+
+                <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">
+                    Ofrenda seleccionada: <strong id="selectedAmountDisplay" style="color: var(--amber-400); font-size: 18px;">$50 MXN</strong>
+                </p>
+
+                <!-- Botones de Ofrenda Mercado Pago / PayPal -->
+                <div class="payment-buttons">
+                    <button onclick="handleDonation('mercadopago')" class="btn-mercadopago">
+                        <i class="bi bi-wallet2"></i> Ofrendar con Mercado Pago
+                    </button>
+                    <button onclick="handleDonation('paypal')" class="btn-paypal">
+                        <i class="bi bi-paypal"></i> Ofrendar con PayPal
+                    </button>
+                </div>
+
+                <small style="display: block; margin-top: 16px; color: var(--text-muted); font-size: 12px;">
+                    Acepta tarjetas de débito/crédito, transferencias SPEI, saldo Mercado Pago o PayPal internacional.
+                </small>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer y Contacto -->
+    <footer class="landing-footer" id="contacto">
+        <div class="container-landing">
+            <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 16px;">
+                <img src="img/logo.svg" alt="Logo" style="height: 32px;">
+                <span style="font-weight: 800; font-size: 18px;">BibleStream Studio</span>
+            </div>
+
+            <p style="color: var(--text-muted); font-size: 14px; max-width: 500px; margin: 0 auto 20px;">
+                Herramienta open source creada para glorificar a Dios y bendecir las transmisiones de iglesias y creadores.
+            </p>
+
+            <div style="margin-bottom: 24px;">
+                <span style="font-size: 14px; color: var(--text-muted);">¿Tienes dudas, sugerencias o necesitas soporte?</span><br>
+                <a href="mailto:mikerosas.dev98@gmail.com" style="color: var(--amber-400); font-weight: 700; font-size: 16px; text-decoration: none;">
+                    <i class="bi bi-envelope-fill me-1"></i> mikerosas.dev98@gmail.com
+                </a>
+            </div>
+
+            <div class="footer-socials">
+                <a href="https://github.com/mikerosasdev98/Bible-obs-plugin" target="_blank" title="GitHub Repository"><i class="bi bi-github"></i></a>
+                <a href="wiki.html" title="Wiki Documentación"><i class="bi bi-book"></i></a>
+                <a href="mailto:mikerosas.dev98@gmail.com" title="Enviar Correo"><i class="bi bi-envelope"></i></a>
+            </div>
+
+            <div style="border-top: 1px solid var(--border-subtle); padding-top: 20px; font-size: 12px; color: var(--text-muted);">
+                Desarrollado por <strong style="color: var(--amber-400);">mikerosasdev</strong> — © 2024 - 2026. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lógica de Donaciones y Tabs -->
+    <script>
+        let currentAmount = 50;
+
+        function selectAmount(amt) {
+            currentAmount = amt;
+            document.getElementById('customAmountInput').value = amt;
+            document.getElementById('selectedAmountDisplay').textContent = `$${amt} MXN`;
+            
+            document.querySelectorAll('.donation-pill').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.includes(`$${amt}`)) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        function updateCustomAmount(val) {
+            const num = parseInt(val, 10);
+            if (num > 0) {
+                currentAmount = num;
+                document.getElementById('selectedAmountDisplay').textContent = `$${num} MXN`;
+                document.querySelectorAll('.donation-pill').forEach(btn => btn.classList.remove('active'));
+            }
+        }
+
+        function handleDonation(gateway) {
+            const amt = currentAmount || 50;
+            if (gateway === 'mercadopago') {
+                // Enlace configurable de Mercado Pago o enlace de cobro
+                // Ejemplo de link.mercadopago.com.mx o contacto directo
+                const mpUrl = `https://link.mercadopago.com.mx/mikerosasdev`; 
+                const confirmRedirect = confirm(`Estás a punto de sembrar una ofrenda de $${amt} MXN con Mercado Pago. ¿Deseas continuar?`);
+                if (confirmRedirect) {
+                    window.open(mpUrl, '_blank');
+                }
+            } else if (gateway === 'paypal') {
+                // Enlace directo de PayPal
+                const ppUrl = `https://paypal.me/mikerosasdev/${amt}MXN`;
+                const confirmRedirect = confirm(`Estás a punto de sembrar una ofrenda de $${amt} MXN con PayPal. ¿Deseas continuar?`);
+                if (confirmRedirect) {
+                    window.open(ppUrl, '_blank');
+                }
+            }
+        }
+
+        function switchInstallTab(tab) {
+            const dockCard = document.getElementById('installDockCard');
+            const overlayCard = document.getElementById('installOverlayCard');
+            const tabDockBtn = document.getElementById('tabDockBtn');
+            const tabOverlayBtn = document.getElementById('tabOverlayBtn');
+
+            if (tab === 'dock') {
+                dockCard.style.display = 'block';
+                overlayCard.style.display = 'none';
+                tabDockBtn.classList.add('active');
+                tabOverlayBtn.classList.remove('active');
+            } else {
+                dockCard.style.display = 'none';
+                overlayCard.style.display = 'block';
+                tabDockBtn.classList.remove('active');
+                tabOverlayBtn.classList.add('active');
+            }
+        }
+
+        function copyCode(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('¡Ruta copiada al portapapeles!');
+            }).catch(err => {
+                console.error('Error al copiar', err);
+            });
+        }
+
+        // Toggle Menú Móvil
+        const navToggleBtn = document.getElementById('navToggleBtn');
+        const navLinks = document.getElementById('navLinks');
+        if (navToggleBtn && navLinks) {
+            navToggleBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('is-open');
+                const isOpen = navLinks.classList.contains('is-open');
+                navToggleBtn.innerHTML = isOpen ? '<i class="bi bi-x-lg"></i>' : '<i class="bi bi-list"></i>';
+            });
+
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('is-open');
+                    navToggleBtn.innerHTML = '<i class="bi bi-list"></i>';
+                });
+            });
+        }
+    </script>
+</body>
+</html>

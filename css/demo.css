@@ -1,0 +1,432 @@
+/* =========================================================
+   BibleStream Studio - Simulador de OBS Studio (demo.html)
+   ========================================================= */
+
+:root {
+    --bg-dark: #080c14;
+    --bg-surface: #0f172a;
+    --bg-surface-elevated: #1e293b;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-highlight: rgba(245, 158, 11, 0.4);
+    
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    
+    --amber-500: #f59e0b;
+    --amber-400: #fbbf24;
+    --emerald-500: #10b981;
+    --red-500: #ef4444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Barra Superior de la Demo */
+.demo-topbar {
+    height: 56px;
+    background: rgba(15, 23, 42, 0.95);
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    gap: 16px;
+    z-index: 100;
+    flex-shrink: 0;
+}
+
+.demo-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 800;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+.demo-brand img {
+    height: 26px;
+    width: auto;
+}
+
+.demo-simulator-pill {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #34d399;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+}
+
+/* Selector de Escenas de Cámara */
+.scene-selector {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 4px 6px;
+    border-radius: 10px;
+    border: 1px solid var(--border-subtle);
+}
+
+.scene-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.scene-btn:hover {
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.scene-btn.active {
+    background: var(--bg-surface-elevated);
+    color: var(--amber-400);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    font-weight: 700;
+}
+
+.demo-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.demo-nav-btn {
+    font-size: 12.5px;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text-muted);
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
+    background: rgba(255, 255, 255, 0.04);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.demo-nav-btn:hover {
+    color: var(--text-main);
+    border-color: var(--amber-500);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.demo-nav-btn.primary {
+    background: linear-gradient(135deg, var(--amber-500), #d97706);
+    color: #000;
+    font-weight: 700;
+    border: none;
+}
+
+/* Área de Trabajo Principal (Split) */
+.demo-workspace {
+    flex: 1;
+    display: flex;
+    height: calc(100vh - 56px);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Panel Izquierdo: Dock */
+.demo-dock-panel {
+    width: 440px;
+    min-width: 360px;
+    max-width: 520px;
+    height: 100%;
+    background: var(--bg-surface);
+    border-right: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+}
+
+.panel-header-bar {
+    height: 38px;
+    background: #090e1a;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--amber-400);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dock-iframe {
+    width: 100%;
+    height: calc(100% - 38px);
+    border: none;
+    background: transparent;
+}
+
+/* Panel Derecho: Pantalla OBS */
+.demo-stream-panel {
+    flex: 1;
+    height: 100%;
+    background: #030712;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 20px;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Ventana de Salida de Programa OBS */
+.obs-window {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    background: #0a0f1d;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.85);
+    overflow: hidden;
+}
+
+.obs-window-header {
+    background: #0f172a;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.obs-window-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.obs-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+}
+
+.obs-window-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.obs-live-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+}
+
+.obs-live-badge.is-live {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+}
+
+.obs-live-badge.is-off {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    border: 1px solid var(--border-subtle);
+}
+
+/* Contenedor 16:9 de la Pantalla */
+.obs-canvas-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    transition: background 0.4s ease;
+}
+
+/* Escenas de Cámara Simuladas */
+.obs-canvas-container.scene-preacher {
+    background: 
+        radial-gradient(ellipse at 50% 35%, rgba(245, 158, 11, 0.22) 0%, transparent 60%),
+        radial-gradient(circle at 20% 80%, rgba(56, 189, 248, 0.12) 0%, transparent 50%),
+        linear-gradient(180deg, #090e1a 0%, #030712 100%);
+}
+
+.obs-canvas-container.scene-worship {
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.3) 0%, transparent 65%),
+        radial-gradient(circle at 75% 40%, rgba(236, 72, 153, 0.22) 0%, transparent 60%),
+        linear-gradient(180deg, #0f1123 0%, #03040a 100%);
+}
+
+.obs-canvas-container.scene-sanctuary {
+    background: 
+        radial-gradient(ellipse at 50% 20%, rgba(251, 191, 36, 0.18) 0%, transparent 70%),
+        linear-gradient(180deg, #131b2e 0%, #040711 100%);
+}
+
+.obs-canvas-container.scene-dark {
+    background: 
+        radial-gradient(circle at 50% 50%, #0b1120 0%, #020408 100%);
+}
+
+/* Elementos decorativos de la cámara simulada */
+.camera-overlay-decor {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    z-index: 5;
+}
+
+.camera-tag {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.camera-tag .rec-dot {
+    width: 8px;
+    height: 8px;
+    background: #ef4444;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #ef4444;
+    animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* Silueta artística del púlpito/pastor para dar realismo a la transmisión */
+.stage-silhouette {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 320px;
+    height: 220px;
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 2;
+    background: radial-gradient(ellipse at 50% 80%, rgba(255, 255, 255, 0.25) 0%, transparent 75%);
+}
+
+/* Iframe que contiene el Overlay (verso.html) dentro de la pantalla */
+.stream-overlay-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Pie de la ventana de OBS con métricas */
+.obs-window-footer {
+    background: #090e1a;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-subtle);
+}
+
+.obs-stat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Banner Informativo Inferior */
+.demo-tips-banner {
+    width: 100%;
+    max-width: 1100px;
+    margin: 14px auto 0;
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-size: 13px;
+    color: #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .demo-workspace {
+        flex-direction: column;
+        height: auto;
+        overflow-y: auto;
+    }
+    .demo-dock-panel {
+        width: 100%;
+        max-width: 100%;
+        height: 600px;
+    }
+    .demo-stream-panel {
+        height: auto;
+        padding: 16px 12px;
+    }
+}

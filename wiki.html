@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiki y Documentación Oficial — BibleStream Studio</title>
+    <meta name="description" content="Manual de usuario completo, guía de instalación en OBS, tabla de abreviaturas bíblicas, atajos de teclado y personalización de BibleStream Studio.">
+
+    <link rel="stylesheet" href="css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="fonts/Montserrat.css">
+    <link rel="stylesheet" href="fonts/Roboto.css">
+    <link rel="stylesheet" href="css/landing.css">
+    <style>
+        .wiki-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            padding: 50px 0 80px;
+        }
+
+        @media (max-width: 900px) {
+            .wiki-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .wiki-sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .wiki-menu-title {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--amber-400);
+            margin-bottom: 12px;
+        }
+
+        .wiki-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .wiki-nav li {
+            margin-bottom: 6px;
+        }
+
+        .wiki-nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .wiki-nav a:hover, .wiki-nav a.active {
+            color: #fff;
+            background: rgba(245, 158, 11, 0.12);
+            font-weight: 600;
+        }
+
+        .wiki-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 44px;
+        }
+
+        .wiki-article h2 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+            margin-top: 36px;
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .wiki-article h2:first-child {
+            margin-top: 0;
+        }
+
+        .wiki-article h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--amber-400);
+            margin-top: 24px;
+            margin-bottom: 10px;
+        }
+
+        .wiki-article p, .wiki-article li {
+            color: #cbd5e1;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 14px;
+        }
+
+        .wiki-callout {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--emerald-500);
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .wiki-callout.warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-left-color: var(--amber-500);
+        }
+
+        .wiki-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .wiki-table th, .wiki-table td {
+            padding: 12px 16px;
+            border: 1px solid var(--border-subtle);
+            text-align: left;
+        }
+
+        .wiki-table th {
+            background: #1e293b;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .wiki-table tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .kbd-key {
+            background: #1e293b;
+            border: 1px solid #475569;
+            box-shadow: 0 2px 0 #000;
+            border-radius: 5px;
+            padding: 3px 8px;
+            font-family: monospace;
+            font-size: 13px;
+            color: var(--amber-400);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegación Superior -->
+    <nav class="navbar-landing">
+        <div class="container-landing">
+            <a href="landing.html" class="nav-brand">
+                <img src="img/logo.svg" alt="BibleStream Studio Logo">
+                <span class="nav-brand-text">BibleStream <span class="nav-brand-accent">Studio</span></span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="landing.html"><i class="bi bi-arrow-left"></i> Volver al Inicio</a></li>
+                <li><a href="landing.html#caracteristicas"><i class="bi bi-grid"></i> Características</a></li>
+                <li><a href="landing.html#ofrendar"><i class="bi bi-heart"></i> Ofrendar</a></li>
+                <li><a href="mailto:mikerosas.dev98@gmail.com"><i class="bi bi-envelope"></i> Soporte</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="demo.html" class="btn-primary-custom nav-btn" target="_blank">
+                    <i class="bi bi-play-circle"></i> Probar Demo
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenedor de la Wiki -->
+    <div class="container-landing">
+        <div class="wiki-layout">
+            <!-- Menú Lateral -->
+            <aside class="wiki-sidebar">
+                <div class="wiki-menu-title">Documentación</div>
+                <ul class="wiki-nav">
+                    <li><a href="#introduccion" class="active"><i class="bi bi-info-circle"></i> Introducción</a></li>
+                    <li><a href="#instalacion-obs"><i class="bi bi-download"></i> Instalación en OBS</a></li>
+                    <li><a href="#operacion-en-vivo"><i class="bi bi-broadcast"></i> Operación en Vivo</a></li>
+                    <li><a href="#versiones-biblicas"><i class="bi bi-journal-bookmark"></i> Versiones Bíblicas</a></li>
+                    <li><a href="#abreviaturas"><i class="bi bi-search"></i> Abreviaturas Bíblicas</a></li>
+                    <li><a href="#atajos-teclado"><i class="bi bi-keyboard"></i> Atajos de Teclado</a></li>
+                    <li><a href="#personalizacion"><i class="bi bi-palette"></i> Fondos y Temas</a></li>
+                    <li><a href="#faq"><i class="bi bi-question-circle"></i> Preguntas Frecuentes</a></li>
+                    <li><a href="#contacto"><i class="bi bi-envelope"></i> Soporte y Contacto</a></li>
+                </ul>
+
+                <div style="border-top: 1px solid var(--border-subtle); padding-top: 16px; margin-top: 10px;">
+                    <a href="landing.html#ofrendar" style="color: var(--amber-400); font-size: 13px; text-decoration: none; font-weight: 700; display: block; text-align: center;">
+                        <i class="bi bi-heart-fill me-1"></i> Sembrar Ofrenda con Mercado Pago / PayPal
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Contenido Principal de la Wiki -->
+            <main class="wiki-content">
+                <article class="wiki-article">
+                    <h1 style="font-size: 36px; font-weight: 900; margin-bottom: 16px; letter-spacing: -1px;">
+                        <i class="bi bi-journal-text me-2" style="color: var(--amber-400);"></i> Wiki y Manual de Usuario
+                    </h1>
+                    <p style="font-size: 17px; color: var(--text-muted); margin-bottom: 30px;">
+                        Aprende a configurar, operar y personalizar <strong>BibleStream Studio</strong> para tus transmisiones en vivo con OBS Studio.
+                    </p>
+
+                    <!-- 1. Introducción -->
+                    <section id="introduccion">
+                        <h2>1. Introducción</h2>
+                        <p>
+                            <strong>BibleStream Studio</strong> es un software open source diseñado específicamente para iglesias, ministerios y creadores que transmiten en vivo utilizando <strong>OBS Studio</strong> (versiones 28, 29, 30 o superiores).
+                        </p>
+                        <p>
+                            El plugin se compone de dos elementos que se comunican automáticamente en tiempo real mediante la tecnología nativa <code>BroadcastChannel</code>:
+                        </p>
+                        <ul>
+                            <li><strong>Panel de Control (Dock - <code>index.html</code>):</strong> Una ventana flotante integrada dentro de OBS Studio donde el operador busca versículos, navega y controla qué sale al aire.</li>
+                            <li><strong>Capa de Transmisión (Browser Source - <code>verso.html</code>):</strong> Una superposición transparente en alta definición (1080p) que se agrega sobre las cámaras o escenas de tu stream.</li>
+                        </ul>
+                    </section>
+
+                    <!-- 2. Instalación en OBS -->
+                    <section id="instalacion-obs">
+                        <h2>2. Guía de Instalación en OBS Studio</h2>
+
+                        <h3>A. Configuración del Panel de Control (Custom Browser Dock)</h3>
+                        <ol>
+                            <li>Abre OBS Studio en tu computadora.</li>
+                            <li>En la barra de menús superior, ve a <strong>Docks (Paneles) <i class="bi bi-chevron-right"></i> Custom Browser Docks (Paneles de navegador personalizados)</strong>.</li>
+                            <li>En la tabla que aparece, escribe:
+                                <ul>
+                                    <li><strong>Nombre del panel:</strong> <code>BibleStream Studio</code></li>
+                                    <li><strong>URL:</strong> La ruta absoluta hacia tu archivo <code>index.html</code> (ejemplo: <code>file:///Users/tu-usuario/Documents/Bible-obs-plugin/index.html</code>).</li>
+                                </ul>
+                            </li>
+                            <li>Haz clic en <strong>Aplicar</strong>. Se abrirá la ventana del buscador.</li>
+                            <li>Arrástrala con el cursor hacia cualquier lateral o parte inferior de la interfaz de OBS para acoplarla limpiamente.</li>
+                        </ol>
+
+                        <h3>B. Configuración de la Superposición (Browser Source)</h3>
+                        <ol>
+                            <li>Ve a la Escena donde quieras mostrar los versículos (ej: <em>Cámara Pastor</em> o <em>Predicación</em>).</li>
+                            <li>En el panel de <strong>Fuentes (Sources)</strong>, presiona el botón <strong><code>+</code> <i class="bi bi-chevron-right"></i> Navegador (Browser Source)</strong>.</li>
+                            <li>Nómbralo <code>Biblia Overlay</code>.</li>
+                            <li>Marca la casilla <strong>Archivo Local (Local File)</strong> y selecciona el archivo <code>verso.html</code>.</li>
+                            <li>Establece los siguientes valores:
+                                <ul>
+                                    <li><strong>Ancho (Width):</strong> <code>1920</code></li>
+                                    <li><strong>Alto (Height):</strong> <code>1080</code></li>
+                                    <li><strong>CSS Personalizado:</strong> Déjalo vacío o por defecto (el fondo es 100% transparente).</li>
+                                </ul>
+                            </li>
+                            <li>Haz clic en <strong>Aceptar</strong>. ¡Ya está listo para transmitir!</li>
+                        </ol>
+                    </section>
+
+                    <!-- 3. Operación en Vivo -->
+                    <section id="operacion-en-vivo">
+                        <h2>3. Manual de Operación en Vivo</h2>
+                        <p>
+                            Durante el servicio o transmisión, el operador no necesita tocar el mouse para tareas complejas:
+                        </p>
+                        <ul>
+                            <li><strong>Búsqueda directa:</strong> Escribe la cita en la barra de búsqueda y presiona <span class="kbd-key">Enter</span>.</li>
+                            <li><strong>Indicador de Estado EN EL AIRE:</strong>
+                                <ul>
+                                    <li><strong style="color: var(--emerald-500);"><i class="bi bi-broadcast me-1"></i> EN VIVO: [Cita]</strong> con indicador verde pulsante indica que el versículo está siendo visto por la audiencia en el stream.</li>
+                                    <li><strong style="color: var(--text-muted);"><i class="bi bi-eye-slash me-1"></i> OCULTO</strong> indica que la pantalla está limpia.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Botón de Pánico (Ocultar Pantalla):</strong> Si el predicador termina la lectura bíblica o cambia de tema de imprevisto, presiona <span class="kbd-key">Esc</span> o haz clic en <em>OCULTAR PANTALLA</em> para limpiar el stream de forma suave e inmediata.</li>
+                        </ul>
+                    </section>
+
+                    <!-- 4. Versiones Bíblicas Disponibles -->
+                    <section id="versiones-biblicas">
+                        <h2>4. Versiones Bíblicas Disponibles (100% Offline)</h2>
+                        <p>
+                            BibleStream Studio integra <strong>6 de las traducciones bíblicas más leídas y confiables en el idioma español</strong>. Cada una está completamente precargada de forma local en tu equipo, garantizando que el operador pueda cambiar de versión al instante durante la predicación desde el selector del Dock sin demoras ni caídas por falta de internet.
+                        </p>
+
+                        <table class="wiki-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 15%;">Acrónimo</th>
+                                    <th style="width: 30%;">Nombre Completo</th>
+                                    <th style="width: 25%;">Tipo de Traducción</th>
+                                    <th style="width: 30%;">Uso Recomendado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span style="background: var(--amber-500); color: #000; font-weight: 800; padding: 2px 8px; border-radius: 6px; font-size: 12px;">RV1960</span></td>
+                                    <td><strong>Reina-Valera 1960</strong></td>
+                                    <td>Formal / Clásica</td>
+                                    <td>La versión por excelencia del pueblo hispano. Belleza lírica, liturgia y memorización congregacional.</td>
+                                </tr>
+                                <tr>
+                                    <td><span style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; font-weight: 800; padding: 2px 8px; border-radius: 6px; font-size: 12px;">NVI</span></td>
+                                    <td><strong>Nueva Versión Internacional</strong></td>
+                                    <td>Equivalencia Dinámica Óptima</td>
+                                    <td>Sermones modernos, excelente balance filológico y lenguaje actual comprensible.</td>
+                                </tr>
+                                <tr>
+                                    <td><span style="background: rgba(167, 139, 250, 0.2); color: #a78bfa; font-weight: 800; padding: 2px 8px; border-radius: 6px; font-size: 12px;">LBLA</span></td>
+                                    <td><strong>La Biblia de las Américas</strong></td>
+                                    <td>Formal Literal Rigurosa</td>
+                                    <td>Estudios bíblicos profundos, precisión textual extrema y predicación expositiva verso a verso.</td>
+                                </tr>
+                                <tr>
+                                    <td><span style="background: rgba(251, 146, 60, 0.2); color: #fb923c; font-weight: 800; padding: 2px 8px; border-radius: 6px; font-size: 12px;">NTV</span></td>
+                                    <td><strong>Nueva Traducción Viviente</strong></td>
+                                    <td>Dinámica Contemporánea</td>
+                                    <td>Claridad impactante, lectura ágil en stream y frescura para transmitir el mensaje vivo.</td>
+                                </tr>
+                                <tr>
+                                    <td><span style="background: rgba(74, 222, 128, 0.2); color: #4ade80; font-weight: 800; padding: 2px 8px; border-radius: 6px; font-size: 12px;">TLA</span></td>
+                                    <td><strong>Traducción en Lenguaje Actual</strong></td>
+                                    <td>Pedagógica / Sencilla</td>
+                                    <td>Ministerios infantiles, jóvenes, familias y personas que inician en la fe cristiana.</td>
+                                </tr>
+                                <tr>
+                                    <td><span style="background: rgba(244, 114, 182, 0.2); color: #f472b6; font-weight: 800; padding: 2px 8px; border-radius: 6px; font-size: 12px;">DHH</span></td>
+                                    <td><strong>Dios Habla Hoy</strong></td>
+                                    <td>Español Estándar Latinoamericano</td>
+                                    <td>Lectura comunitaria accesible y estilo directo de las Sociedades Bíblicas Unidas.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="wiki-callout">
+                            <strong><i class="bi bi-cpu me-1"></i> Arquitectura de Carga Ligera (Lazy Loading):</strong><br>
+                            BibleStream Studio inicia con <code>RV1960</code> precargada por defecto (~7 MB). Las otras versiones solo se cargan en memoria si el operador las selecciona en el selector, ahorrándole a OBS Studio más de <strong>40 MB de memoria RAM</strong> durante tus transmisiones.
+                        </div>
+                    </section>
+
+                    <!-- 5. Abreviaturas Bíblicas -->
+                    <section id="abreviaturas">
+                        <h2>5. Tabla de Abreviaturas Bíblicas</h2>
+                        <p>
+                            El motor inteligente de BibleStream Studio reconoce abreviaturas canónicas en español para que no tengas que escribir el nombre completo del libro:
+                        </p>
+
+                        <table class="wiki-table">
+                            <thead>
+                                <tr>
+                                    <th>Ejemplo</th>
+                                    <th>Abreviaturas Reconocidas</th>
+                                    <th>Libro Detectado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>Jn 3:16</code></td>
+                                    <td><code>jn</code>, <code>jua</code>, <code>juan</code></td>
+                                    <td>Juan</td>
+                                </tr>
+                                <tr>
+                                    <td><code>Gn 1:1</code></td>
+                                    <td><code>gn</code>, <code>gen</code>, <code>genesis</code></td>
+                                    <td>Génesis</td>
+                                </tr>
+                                <tr>
+                                    <td><code>Sal 23</code></td>
+                                    <td><code>sal</code>, <code>salmo</code>, <code>salmos</code>, <code>ps</code></td>
+                                    <td>Salmos</td>
+                                </tr>
+                                <tr>
+                                    <td><code>1 Co 13:4-8</code></td>
+                                    <td><code>1co</code>, <code>1cor</code>, <code>1 corintios</code></td>
+                                    <td>1 Corintios</td>
+                                </tr>
+                                <tr>
+                                    <td><code>Rom 8:28</code></td>
+                                    <td><code>ro</code>, <code>rom</code>, <code>romanos</code></td>
+                                    <td>Romanos</td>
+                                </tr>
+                                <tr>
+                                    <td><code>Ap 21:4</code></td>
+                                    <td><code>ap</code>, <code>apo</code>, <code>apoc</code>, <code>apocalipsis</code></td>
+                                    <td>Apocalipsis</td>
+                                </tr>
+                                <tr>
+                                    <td><code>Mt 5:3-12</code></td>
+                                    <td><code>mt</code>, <code>mat</code>, <code>mateo</code></td>
+                                    <td>Mateo</td>
+                                </tr>
+                                <tr>
+                                    <td><code>Ex 20:1</code></td>
+                                    <td><code>ex</code>, <code>exo</code>, <code>exodo</code></td>
+                                    <td>Éxodo</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <!-- 6. Atajos de Teclado -->
+                    <section id="atajos-teclado">
+                        <h2>6. Atajos de Teclado en Vivo</h2>
+                        <table class="wiki-table">
+                            <thead>
+                                <tr>
+                                    <th>Tecla</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="kbd-key">→</span> (Flecha Derecha)</td>
+                                    <td>Avanzar al siguiente versículo y proyectarlo de inmediato.</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="kbd-key">←</span> (Flecha Izquierda)</td>
+                                    <td>Retroceder al versículo anterior y proyectarlo de inmediato.</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="kbd-key">Espacio</span></td>
+                                    <td>Alternar entre Mostrar en pantalla u Ocultar el versículo seleccionado.</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="kbd-key">Esc</span></td>
+                                    <td>Ocultar pantalla inmediatamente (Blackout de emergencia).</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="kbd-key">Enter</span></td>
+                                    <td>Ejecutar la búsqueda de la referencia escrita en el campo de texto.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <!-- 7. Personalización Visual -->
+                    <section id="personalizacion">
+                        <h2>7. Personalización de Fondos y Temas</h2>
+                        <p>
+                            Haz clic en el botón de engranaje/sliders (<i class="bi bi-sliders"></i>) en la cabecera del Dock para abrir el panel de personalización:
+                        </p>
+                        <ul>
+                            <li><strong>Modos de Posición:</strong>
+                                <ul>
+                                    <li><em>Tercio Inferior (Lower-Third):</em> Barra moderna en la parte baja de la pantalla. Ideal para cuando el pastor o conferencista está en cuadro.</li>
+                                    <li><em>Tarjeta Centrada:</em> Versículo amplio y centrado en la pantalla. Ideal para lecturas comunitarias o momentos de reflexión.</li>
+                                    <li><em>Minimalista con Sombra:</em> Sin recuadro de fondo, solo texto flotante con sombra profunda de alto contraste.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Fondos Personalizados:</strong>
+                                <ul>
+                                    <li>Puedes subir fotos de tu iglesia o gráficos presionando el botón <strong>Subir</strong>.</li>
+                                    <li>O elegir entre degradados elegantes como <em>Azul Noche Celestial</em>, <em>Dorado Cálido</em>, <em>Púrpura Real</em> o <em>Esmeralda</em>.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Control de Contraste / Oscurecimiento (Slider):</strong>
+                                Ajusta entre 20% y 95% la capa de oscurecimiento para asegurar que el texto blanco nunca se pierda sobre fondos coloridos o cámaras iluminadas.
+                            </li>
+                            <li><strong>Modo Claro y Oscuro del Dock:</strong>
+                                Presiona el ícono de Sol / Luna en la cabecera para adaptar la interfaz del operador a cabinas oscuras o iluminadas.
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- 8. Preguntas Frecuentes -->
+                    <section id="faq">
+                        <h2>8. Preguntas Frecuentes (FAQ)</h2>
+                        <div class="wiki-callout">
+                            <strong>¿Requiere conexión a internet durante el culto?</strong><br>
+                            No. Todas las 6 versiones bíblicas están almacenadas localmente en archivos de datos. Funciona 100% offline.
+                        </div>
+
+                        <div class="wiki-callout">
+                            <strong>¿El versículo no aparece en la pantalla de OBS, qué hago?</strong><br>
+                            1. Verifica que la fuente de navegador apunte a <code>verso.html</code>.<br>
+                            2. En OBS, haz clic derecho sobre la fuente <code>Biblia Overlay</code> y selecciona <em>Actualizar (Refresh)</em>.<br>
+                            3. Asegúrate de que el Dock tenga un versículo seleccionado (marcado con el indicador verde <code style="color: #34d399;"><i class="bi bi-broadcast me-1"></i> EN VIVO</code>).
+                        </div>
+
+                        <div class="wiki-callout">
+                            <strong>¿Es compatible con Mac, Windows y Linux?</strong><br>
+                            Sí. Al estar desarrollado con estándares web nativos y la API <code>BroadcastChannel</code>, funciona idénticamente en cualquier sistema operativo donde corra OBS Studio.
+                        </div>
+                    </section>
+
+                    <!-- 9. Contacto -->
+                    <section id="contacto">
+                        <h2>9. Soporte, Dudas y Sugerencias</h2>
+                        <p>
+                            Si encuentras algún problema, deseas sugerir una nueva función o necesitas ayuda para configurarlo en tu iglesia, puedes escribir directamente a:
+                        </p>
+                        <p>
+                            <i class="bi bi-envelope-fill me-1" style="color: var(--amber-400);"></i> Correo: <a href="mailto:mikerosas.dev98@gmail.com" style="color: var(--amber-400); font-weight: 700;">mikerosas.dev98@gmail.com</a><br>
+                            <i class="bi bi-code-slash me-1" style="color: var(--accent-blue);"></i> Desarrollado por: <strong>mikerosasdev</strong>
+                        </p>
+                    </section>
+                </article>
+            </main>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+        <div class="container-landing">
+            <p style="color: var(--text-muted); font-size: 13px;">
+                BibleStream Studio — © 2024 - 2026. Desarrollado por <strong style="color: var(--amber-400);">mikerosasdev</strong>.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

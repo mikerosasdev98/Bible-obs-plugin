@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OBS Bible Controller</title>
+    <title>BibleStream Studio - Plugin para OBS</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap-icons.min.css">
@@ -23,8 +23,8 @@
     <!-- Cabecera Minimalista -->
     <header class="minimal-header d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom" style="border-color: var(--border-subtle) !important;">
         <div class="d-flex align-items-center gap-2">
-            <img src="img/logo.png" alt="Logo" class="dock-logo">
-            <span class="app-brand">OBS Bible</span>
+            <img src="img/logo.svg" alt="BibleStream Studio Logo" class="dock-logo" style="max-height: 28px; width: 28px;">
+            <span class="app-brand">BibleStream Studio <span class="badge" style="background: var(--border-color); color: var(--text-secondary); font-size: 9px; font-weight: 600;">v2.0</span></span>
         </div>
 
         <div class="d-flex align-items-center gap-2">
@@ -43,6 +43,16 @@
             <button id="toggleThemeBtn" class="btn-icon-ghost" title="Cambiar a Modo Claro / Oscuro">
                 <i class="bi bi-sun-fill" id="themeIcon"></i>
             </button>
+
+            <!-- Enlace al Simulador de Pantalla OBS -->
+            <a href="demo.html" target="_blank" class="btn-icon-ghost text-decoration-none" title="Simular Pantalla de OBS (Demo en Vivo)">
+                <i class="bi bi-tv"></i>
+            </a>
+
+            <!-- Enlace a la Wiki y Manual -->
+            <a href="wiki.html" target="_blank" class="btn-icon-ghost text-decoration-none" title="Wiki y Guía de Uso">
+                <i class="bi bi-question-circle"></i>
+            </a>
         </div>
     </header>
 
@@ -53,7 +63,7 @@
                 <i class="bi bi-palette me-1"></i> Personalización del Overlay
             </span>
             <button id="closeSettingsBtn" class="btn btn-sm btn-link p-0 text-decoration-none" style="color: var(--text-secondary); font-size: 11px;">
-                Cerrar ✕
+                Cerrar <i class="bi bi-x-lg ms-1"></i>
             </button>
         </div>
 
@@ -233,8 +243,13 @@
     </div>
 
     <!-- Footer Minimalista -->
-    <footer class="mt-2 pt-1 text-center" style="color: var(--text-muted); font-size: 10.5px;">
-        <span>Atajos: <strong>[← / →]</strong> Navegar | <strong>[Espacio]</strong> En Vivo | <strong>[Esc]</strong> Ocultar</span>
+    <footer class="mt-2 pt-1 border-top d-flex flex-wrap justify-content-between align-items-center px-1" style="border-color: var(--border-subtle) !important; color: var(--text-muted); font-size: 10.5px;">
+        <div>
+            <span>Desarrollado por <strong style="color: var(--accent-amber);">mikerosasdev</strong> &bull; <a href="wiki.html" target="_blank" style="color: var(--text-muted); text-decoration: none;">Wiki</a> &bull; <a href="landing.html" target="_blank" style="color: var(--text-muted); text-decoration: none;">Web Oficial</a></span>
+        </div>
+        <div>
+            <span>Atajos: <strong>[← / →]</strong> Navegar | <strong>[Espacio]</strong> En Vivo | <strong>[Esc]</strong> Ocultar</span>
+        </div>
     </footer>
 </div>
 

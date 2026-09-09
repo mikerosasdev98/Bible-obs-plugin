@@ -1,4 +1,4 @@
-# Bible OBS Plugin 📖🎬
+# BibleStream Studio
 
 Plugin interactivo para buscar y proyectar versículos de la Biblia en transmisiones en vivo con **OBS Studio**.
 
@@ -6,7 +6,7 @@ Cuenta con un **Panel de Control (Dock)** moderno para el operador y un **Overla
 
 ---
 
-## 🚀 Características Nuevas y Mejoras
+## Características y Mejoras
 
 - **Comunicación en Tiempo Real:** Sincronización instantánea mediante `BroadcastChannel` usando datos estructurados en JSON (soporta textos con comillas y diálogos sin romperse).
 - **Carga Rápida y Ligera (Lazy Loading):** Se carga `RV1960` por defecto y las demás versiones bíblicas solo se cargan si las seleccionas, ahorrando más de **40 MB de memoria RAM** en OBS.
@@ -27,10 +27,10 @@ Cuenta con un **Panel de Control (Dock)** moderno para el operador y un **Overla
 
 ---
 
-## 🛠️ Configuración en OBS Studio
+## Configuración en OBS Studio
 
 ### 1. Panel de Control (Custom Browser Dock)
-1. En OBS Studio, ve al menú superior: **Docks (Paneles) ➔ Custom Browser Docks (Paneles de navegador personalizados)**.
+1. En OBS Studio, ve al menú superior: **Docks (Paneles) > Custom Browser Docks (Paneles de navegador personalizados)**.
 2. Añade un nuevo dock:
    - **Nombre:** `Biblia Control`
    - **URL:** Ruta a tu archivo `index.html`, por ejemplo:
@@ -39,7 +39,7 @@ Cuenta con un **Panel de Control (Dock)** moderno para el operador y un **Overla
 4. **Dimensiones recomendadas para el Dock:** Ancho aproximado de `400px` a `550px`.
 
 ### 2. Fuente de Superposición en Escenas (Browser Source)
-1. En tu Escena de OBS, añade una nueva fuente: **`+` ➔ Navegador (Browser Source)**.
+1. En tu Escena de OBS, añade una nueva fuente: **`+` > Navegador (Browser Source)**.
 2. Configuración de la fuente:
    - Marca la casilla **Archivo local (Local file)** y selecciona `verso.html` (o ingresa la URL de `verso.html`).
    - **Ancho (Width):** `1920`
@@ -49,7 +49,7 @@ Cuenta con un **Panel de Control (Dock)** moderno para el operador y un **Overla
 
 ---
 
-## 📚 Versiones Bíblicas Incluidas
+## Versiones Bíblicas Incluidas
 - **RV1960** (Reina-Valera 1960)
 - **NVI** (Nueva Versión Internacional)
 - **LBLA** (La Biblia de las Américas)
@@ -59,5 +59,5 @@ Cuenta con un **Panel de Control (Dock)** moderno para el operador y un **Overla
 
 ---
 
-## ⌨️ Desarrollado por
-Miguel Rosas & José Rosas Jiménez - © 2024 - 2026.
+## Créditos
+Desarrollado por **mikerosasdev** - © 2024 - 2026.
