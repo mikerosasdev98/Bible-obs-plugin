@@ -30,9 +30,6 @@
             </ul>
 
             <div class="nav-actions">
-                <a href="demo.html" class="btn-outline-custom nav-btn" target="_blank">
-                    <i class="bi bi-play-circle"></i> <span>Probar Demo</span>
-                </a>
                 <a href="#descargar" class="btn-primary-custom nav-btn">
                     <i class="bi bi-download"></i> <span>Descargar</span>
                 </a>
@@ -371,19 +368,17 @@
 
                 <!-- Selector de Montos -->
                 <div class="donation-pill-grid">
-                    <button class="donation-pill" onclick="selectAmount(10)">$10 MXN</button>
-                    <button class="donation-pill" onclick="selectAmount(20)">$20 MXN</button>
-                    <button class="donation-pill active" onclick="selectAmount(50)">$50 MXN</button>
-                    <button class="donation-pill" onclick="selectAmount(100)">$100 MXN</button>
+                    <button class="donation-pill" onclick="selectAmount(50)">$50 MXN</button>
+                    <button class="donation-pill active" onclick="selectAmount(100)">$100 MXN</button>
                     <button class="donation-pill" onclick="selectAmount(200)">$200 MXN</button>
                     <button class="donation-pill" onclick="selectAmount(500)">$500 MXN</button>
                 </div>
 
                 <!-- Monto Personalizado -->
-                <input type="number" id="customAmountInput" class="custom-amount-input" placeholder="Otro monto de ofrenda (MXN)..." min="5" value="50" oninput="updateCustomAmount(this.value)">
+                <input type="number" id="customAmountInput" class="custom-amount-input" placeholder="Otro monto de ofrenda (MXN)..." min="50" value="100" oninput="updateCustomAmount(this.value)">
 
                 <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">
-                    Ofrenda seleccionada: <strong id="selectedAmountDisplay" style="color: var(--amber-400); font-size: 18px;">$50 MXN</strong>
+                    Ofrenda seleccionada: <strong id="selectedAmountDisplay" style="color: var(--amber-400); font-size: 18px;">$100 MXN</strong>
                 </p>
 
                 <!-- Botones de Ofrenda Mercado Pago / PayPal -->
@@ -436,7 +431,7 @@
 
     <!-- Lógica de Donaciones y Tabs -->
     <script>
-        let currentAmount = 50;
+        let currentAmount = 100;
 
         function selectAmount(amt) {
             currentAmount = amt;
@@ -463,16 +458,18 @@
         function handleDonation(gateway) {
             const amt = currentAmount || 50;
             if (gateway === 'mercadopago') {
-                // Enlace configurable de Mercado Pago o enlace de cobro
-                // Ejemplo de link.mercadopago.com.mx o contacto directo
-                const mpUrl = `https://link.mercadopago.com.mx/mikerosasdev`; 
+                // Enlaces de Mercado Pago (puedes agregar los de otros montos aquí)
+                const mpLinks = {
+                    100: 'https://mpago.la/1WRaQUv'
+                };
+                const mpUrl = mpLinks[amt] || 'https://mpago.la/1WRaQUv';
                 const confirmRedirect = confirm(`Estás a punto de sembrar una ofrenda de $${amt} MXN con Mercado Pago. ¿Deseas continuar?`);
                 if (confirmRedirect) {
                     window.open(mpUrl, '_blank');
                 }
             } else if (gateway === 'paypal') {
-                // Enlace directo de PayPal
-                const ppUrl = `https://paypal.me/mikerosasdev/${amt}MXN`;
+                // Enlace directo de PayPal oficial
+                const ppUrl = `https://paypal.me/miguelrosas3303/${amt}MXN`;
                 const confirmRedirect = confirm(`Estás a punto de sembrar una ofrenda de $${amt} MXN con PayPal. ¿Deseas continuar?`);
                 if (confirmRedirect) {
                     window.open(ppUrl, '_blank');
