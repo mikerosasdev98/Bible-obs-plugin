@@ -3,14 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscador de la Biblia</title>
-
+    <title>Buscador de la Biblia - OBS Controller</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/style.css">
-
-    <script src="js/jquery-3.6.0.min.js"></script>
 
     <!-- Fuentes de Google Fonts -->
     <link rel="stylesheet" href="fonts/Roboto.css">
@@ -19,134 +16,207 @@
     <link rel="stylesheet" href="fonts/Lato.css">
     <link rel="stylesheet" href="fonts/Raleway.css">
     <link rel="stylesheet" href="fonts/Poppins.css">
-
 </head>
-<body>
-<div class="container-fluid text-center">
-    <header class="text-center m-0 p-0">
+<body class="bg-dark text-light">
 
-        <img style="max-height: 120px;" src="img/logo.png" alt="Logo Cultura de Jesus">
-
+<div class="dock-container container-fluid p-2 p-md-3">
+    <!-- Header y Estado EN EL AIRE -->
+    <header class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom border-secondary">
+        <div class="d-flex align-items-center gap-2">
+            <img src="img/logo.png" alt="Logo" class="dock-logo">
+            <span class="fw-bold fs-6 text-white-50">OBS Bible Dock</span>
+        </div>
+        <div id="live-indicator" class="live-badge badge-off d-flex align-items-center gap-2 px-3 py-2 rounded-pill">
+            <span class="live-dot"></span>
+            <span id="live-status-text" class="fw-bold">OCULTO</span>
+        </div>
     </header>
-    <div class="m-o p-0">
 
-        <div class="row">
-            <div class="col-6">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="mb-2">
-                            <label style="font-size: 14px;" for="version" class="form-label">Versión:</label>
-                            <select id="version" class="form-select">
-                                <option value="RV1960">RV1960</option>
-                                <option value="LBLA">LBLA</option>
-                                <option value="NVI">NVI</option>
-                                <option value="NTV">NTV</option>
-                                <option value="TLA">TLA</option>
-                                <option value="DHH">Dios Habla Hoy</option>
-                            </select>
-                        </div>
-
-                    </div>
-                    <div class="col-6">
-                        <div class="mb-3">
-                            <label style="font-size: 14px;" for="fontSelect" class="form-label">Tipo de letra:</label>
-                            <select id="fontSelect" class="form-select">
-                                <option value="Arial, sans-serif">Arial</option>
-                                <option value="Times New Roman, serif">Times New Roman</option>
-                                <option value="Verdana, sans-serif">Verdana</option>
-                                <option value="Roboto, sans-serif">Roboto (Google Fonts)</option>
-                                <option value="Montserrat, sans-serif">Montserrat (Google Fonts)</option>
-                                <option value="Open Sans, sans-serif">Open Sans (Google Fonts)</option>
-                                <option value="Lato, sans-serif">Lato (Google Fonts)</option>
-                                <option value="Raleway, sans-serif">Raleway (Google Fonts)</option>
-                                <option value="Poppins, sans-serif">Poppins (Google Fonts)</option>
-                            </select>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row">
-
-                    <label style="font-size: 13px;" for="reference" class="form-label fw-lighter">Referencia (por
-                        ejemplo,
-                        Génesis 1:1):</label>
-
-                    <div class="col-8 col-md-8">
-                        <div class="m-0">
-                            <input type="text" id="reference" class="form-control">
-                            <div id="autocomplete-list" class="list-group"></div> <!-- Cambiado de ul a div -->
-                        </div>
-                    </div>
-                    <div class="col-4 col-md-4 align-self-start">
-                        <button id="searchBtn" class="btn btn-primary  w-100">
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </div>
-
-                </div>
+    <!-- Barra de Búsqueda Principal -->
+    <div class="search-section card bg-secondary bg-opacity-25 border-secondary p-2 mb-2">
+        <div class="row g-2">
+            <div class="col-6 col-md-3">
+                <label for="version" class="form-label form-label-sm text-secondary mb-1">Versión</label>
+                <select id="version" class="form-select form-select-sm bg-dark text-white border-secondary">
+                    <option value="RV1960" selected>RV1960</option>
+                    <option value="NVI">NVI</option>
+                    <option value="LBLA">LBLA</option>
+                    <option value="NTV">NTV</option>
+                    <option value="TLA">TLA</option>
+                    <option value="DHH">Dios Habla Hoy</option>
+                </select>
             </div>
-
-            <div class="col-6">
-                <p>Resultado:</p>
-                <div class="row m-1">
-                    <div class="col-6">
-                        <button id="prevChapterBtn" class="btn btn-sm btn-warning w-100" style="font-size: 15px;" title="Capítulo Anterior">
-                            Cap. anterior <span style="font-size: 15px;" class="bi bi-arrow-left-circle"></span> <!-- Ícono para Capítulo Anterior -->
-                        </button>
-                    </div>
-                    <div class="col-6">
-                        <button id="nextChapterBtn" class="btn btn-sm btn-success w-100" style="font-size: 15px;" title="Siguiente Capítulo">
-                            Sig. capítulo <span style="font-size: 15px;" class="bi bi-arrow-right-circle"></span> <!-- Ícono para Siguiente Capítulo -->
-                        </button>
-                    </div>
-                </div>
-                <div class="row m-1">
-                    <div class="col-6">
-                        <button id="prevVerseBtn" class="btn btn-sm btn-warning w-100" style="font-size: 15px;" title="Versículo Anterior">
-                            Versículo anterior <span style="font-size: 15px;" class="bi bi-arrow-left-circle"></span>
-                        </button>
-                    </div>
-                    <div class="col-6">
-                        <button id="nextVerseBtn" class="btn btn-sm btn-success w-100" style="font-size: 15px;" title="Siguiente Versículo">
-                            Versículo siguiente <span style="font-size: 15px;" class="bi bi-arrow-right-circle"></span>
-                        </button>
-                    </div>
-                </div>
-            
-                <div class="m-3">
-                    <div id="result-container" class=""> <!-- Contenedor de los resultados con scroll -->
-                        <div id="result"></div> <!-- Resultados -->
-                    </div>
-                </div>
+            <div class="col-6 col-md-3">
+                <label for="fontSelect" class="form-label form-label-sm text-secondary mb-1">Tipografía</label>
+                <select id="fontSelect" class="form-select form-select-sm bg-dark text-white border-secondary">
+                    <option value="'Montserrat', sans-serif">Montserrat</option>
+                    <option value="'Roboto', sans-serif">Roboto</option>
+                    <option value="'Poppins', sans-serif">Poppins</option>
+                    <option value="'Open Sans', sans-serif">Open Sans</option>
+                    <option value="'Lato', sans-serif">Lato</option>
+                    <option value="'Raleway', sans-serif">Raleway</option>
+                    <option value="Arial, sans-serif">Arial</option>
+                </select>
             </div>
-            
-
+            <div class="col-6 col-md-3">
+                <label for="themeSelect" class="form-label form-label-sm text-secondary mb-1">Tema Overlay</label>
+                <select id="themeSelect" class="form-select form-select-sm bg-dark text-white border-secondary">
+                    <option value="theme-lower-third">Tercio Inferior</option>
+                    <option value="theme-card-center">Tarjeta Centrada</option>
+                    <option value="theme-minimal">Minimalista Sombra</option>
+                </select>
+            </div>
+            <div class="col-6 col-md-3">
+                <label for="sizeSelect" class="form-label form-label-sm text-secondary mb-1">Tamaño Texto</label>
+                <select id="sizeSelect" class="form-select form-select-sm bg-dark text-white border-secondary">
+                    <option value="size-small">Pequeño</option>
+                    <option value="size-medium" selected>Mediano</option>
+                    <option value="size-large">Grande</option>
+                </select>
+            </div>
         </div>
 
+        <!-- Fila de Fondos Personalizados -->
+        <div class="row g-2 mt-1 pt-1 border-top border-secondary border-opacity-50 align-items-center">
+            <div class="col-12 col-md-5">
+                <label for="bgSelect" class="form-label form-label-sm text-secondary mb-1">
+                    <i class="bi bi-palette"></i> Fondo del Versículo
+                </label>
+                <div class="d-flex gap-1">
+                    <select id="bgSelect" class="form-select form-select-sm bg-dark text-white border-secondary">
+                        <option value="default">Por defecto (Vidrio Oscuro)</option>
+                        <option value="gradient-blue">Azul Noche Celestial</option>
+                        <option value="gradient-gold">Dorado / Luz Cálida</option>
+                        <option value="gradient-purple">Púrpura Real</option>
+                        <option value="gradient-emerald">Esmeralda Profundo</option>
+                        <option value="custom-image">Imagen Personalizada...</option>
+                    </select>
+                    <input type="file" id="bgFileInput" accept="image/*" class="d-none">
+                    <button id="uploadBgBtn" class="btn btn-sm btn-outline-info text-nowrap" type="button" title="Subir imagen propia">
+                        <i class="bi bi-upload"></i> Subir
+                    </button>
+                </div>
+            </div>
+            <div class="col-8 col-md-5">
+                <label for="bgDarknessSlider" class="form-label form-label-sm text-secondary mb-1 d-flex justify-content-between">
+                    <span><i class="bi bi-brightness-medium"></i> Contraste / Oscuridad</span>
+                    <span id="bgDarknessLabel" class="text-white-50">65%</span>
+                </label>
+                <input type="range" class="form-range" id="bgDarknessSlider" min="0.2" max="0.95" step="0.05" value="0.65">
+            </div>
+            <div class="col-4 col-md-2 d-flex align-items-end">
+                <button id="resetBgBtn" class="btn btn-sm btn-outline-secondary w-100" type="button" title="Restablecer fondo por defecto">
+                    <i class="bi bi-arrow-counterclockwise"></i> Reset
+                </button>
+            </div>
+        </div>
 
+        <div class="mt-2 position-relative">
+            <div class="input-group">
+                <span class="input-group-text bg-dark text-secondary border-secondary">
+                    <i class="bi bi-search"></i>
+                </span>
+                <input type="text" id="reference" class="form-control bg-dark text-white border-secondary" 
+                       placeholder="Ej: Jn 3:16, Rom 8:28, Salmos 23..." autocomplete="off">
+                <button id="searchBtn" class="btn btn-primary px-3" type="button">
+                    Buscar
+                </button>
+            </div>
+            <div id="autocomplete-list" class="autocomplete-dropdown list-group shadow"></div>
+        </div>
     </div>
 
+    <!-- Barra de Control Rápido en Vivo -->
+    <div class="quick-controls card bg-secondary bg-opacity-25 border-secondary p-2 mb-2">
+        <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center">
+            <!-- Botón de pánico / Clear -->
+            <button id="clearScreenBtn" class="btn btn-danger btn-sm px-3 d-flex align-items-center gap-1">
+                <i class="bi bi-eye-slash-fill"></i>
+                <span class="fw-bold">OCULTAR PANTALLA</span> (Esc)
+            </button>
 
-    <footer class="footer">
-        <div class="container">
-            <img style="max-height: 45px;" src="img/cjn-min.png" alt="Logo Cultura de Jesus">
-            <p class="mb-1 fw-bold" style="font-size: 11px">&copy; 2024 Todos los derechos
-                reservados</p>
-            <p class="mb-0 fw-lighter" style="font-size: 9px">Desarrollado por Miguel Rosas</p>
+            <!-- Controles de navegación de versículos -->
+            <div class="btn-group btn-group-sm">
+                <button id="prevChapterBtn" class="btn btn-outline-warning" title="Capítulo Anterior">
+                    <i class="bi bi-chevron-double-left"></i> Cap. Ant.
+                </button>
+                <button id="prevVerseBtn" class="btn btn-warning" title="Versículo Anterior (Flecha Izquierda)">
+                    <i class="bi bi-arrow-left"></i> Verso Ant.
+                </button>
+                <button id="nextVerseBtn" class="btn btn-success" title="Versículo Siguiente (Flecha Derecha)">
+                    Verso Sig. <i class="bi bi-arrow-right"></i>
+                </button>
+                <button id="nextChapterBtn" class="btn btn-outline-success" title="Siguiente Capítulo">
+                    Cap. Sig. <i class="bi bi-chevron-double-right"></i>
+                </button>
+            </div>
         </div>
-    </footer>
+    </div>
 
+    <!-- Contenedor Principal: Resultados y Versículo en el Aire -->
+    <div class="row g-2 flex-grow-1">
+        <!-- Lista de versículos del capítulo/búsqueda -->
+        <div class="col-12 col-lg-8 d-flex flex-column">
+            <div class="card bg-secondary bg-opacity-25 border-secondary flex-grow-1 d-flex flex-column p-2 overflow-hidden">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span id="chapter-title" class="fw-bold text-warning small text-uppercase">Resultados</span>
+                    <span class="text-white-50" style="font-size: 11px;">Haz clic en un versículo para proyectar</span>
+                </div>
+                <div id="result-container" class="verses-scroll-area flex-grow-1">
+                    <div id="result" class="verses-list">
+                        <div class="text-center text-muted p-4">
+                            <i class="bi bi-book fs-1 d-block mb-2"></i>
+                            Escribe una referencia arriba (ej: <code>Jn 3:16</code> o <code>Sal 23</code>) para comenzar.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Lateral: Versículo en Vivo e Historial Reciente -->
+        <div class="col-12 col-lg-4 d-flex flex-column gap-2">
+            <!-- Monitor de lo que está al aire -->
+            <div class="card bg-dark border-secondary p-2">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="text-secondary fw-bold" style="font-size: 11px;">EN PANTALLA (OBS)</span>
+                    <span id="live-version-tag" class="badge bg-secondary" style="font-size: 10px;"></span>
+                </div>
+                <div id="monitor-box" class="monitor-preview p-2 rounded bg-black text-light">
+                    <div id="monitor-citation" class="fw-bold text-warning small mb-1">Ningún versículo en pantalla</div>
+                    <div id="monitor-text" class="text-muted" style="font-size: 13px; max-height: 90px; overflow-y: auto;">
+                        Selecciona un verso para proyectarlo en el stream.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Historial Reciente -->
+            <div class="card bg-secondary bg-opacity-25 border-secondary p-2 flex-grow-1 d-flex flex-column overflow-hidden">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="text-secondary fw-bold" style="font-size: 11px;">HISTORIAL RECIENTE</span>
+                    <button id="clearHistoryBtn" class="btn btn-link text-white-50 p-0 text-decoration-none" style="font-size: 10px;">
+                        Limpiar
+                    </button>
+                </div>
+                <div id="recent-history-list" class="history-list flex-grow-1 overflow-auto">
+                    <div class="text-muted text-center py-3" style="font-size: 12px;">Sin versículos recientes</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="dock-footer mt-2 pt-2 border-top border-secondary text-center text-white-50">
+        <small style="font-size: 10px;">Atajos: <strong>[← / →]</strong> Navegar versículos | <strong>[Espacio]</strong> Proyectar/Ocultar | <strong>[Esc]</strong> Ocultar</small>
+    </footer>
 </div>
 
-
-<script src="bibles/RV1960.js?v=" + Math.random()></script>
-<script src="bibles/LBLA.js?v=" + Math.random()></script>
-<script src="bibles/NVI.js?v=" + Math.random()></script>
-<script src="bibles/NTV.js?v=" + Math.random()></script>
-<script src="bibles/TLA.js?v=" + Math.random()></script>
-<script src="bibles/DHH.js?v=" + Math.random()></script>
-<script src="js/script.js?v=" + Math.random()></script>
-
-
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="bibles/RV1960.js"></script>
+<script src="bibles/NVI.js"></script>
+<script src="bibles/LBLA.js"></script>
+<script src="bibles/NTV.js"></script>
+<script src="bibles/TLA.js"></script>
+<script src="bibles/DHH.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>

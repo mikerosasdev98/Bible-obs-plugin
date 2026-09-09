@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Versículo de la Biblia</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="css/verso.css">
-    <!-- Importar las fuentes de Google Fonts -->
+    <title>OBS Bible Overlay</title>
     <!-- Fuentes de Google Fonts -->
     <link rel="stylesheet" href="fonts/Roboto.css">
     <link rel="stylesheet" href="fonts/Montserrat.css">
@@ -15,16 +11,20 @@
     <link rel="stylesheet" href="fonts/Lato.css">
     <link rel="stylesheet" href="fonts/Raleway.css">
     <link rel="stylesheet" href="fonts/Poppins.css">
-
+    
+    <link rel="stylesheet" href="css/verso.css">
 </head>
 <body>
-<div class="container">
-    <div id="verse-container">
-        <div class="verse-citation" id="verse-citation"></div>
-        <div class="verse-text" id="verse-text"></div>
+    <div id="overlay-wrapper" class="theme-lower-third size-medium">
+        <div id="verse-box" class="hidden">
+            <div class="citation-container">
+                <span class="verse-citation" id="verse-citation"></span>
+                <span class="verse-version-badge" id="verse-version"></span>
+            </div>
+            <div class="verse-text" id="verse-text"></div>
+        </div>
     </div>
-</div>
 
-<script src="js/verso.js"></script>
+    <script src="js/verso.js"></script>
 </body>
 </html>
