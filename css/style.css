@@ -1,14 +1,77 @@
 /* =========================================================
-   Estilos para el OBS Custom Browser Dock (index.html)
+   SISTEMA DE DISEÑO MINIMALISTA - OBS BIBLE CONTROLLER
+   Soporte completo para Modo Oscuro y Modo Claro
    ========================================================= */
 
+:root {
+    /* MODO OSCURO (Default) */
+    --bg-app: #0f172a;
+    --bg-surface: #1e293b;
+    --bg-surface-subtle: #162032;
+    --bg-input: #0b1120;
+    --border-color: #334155;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    
+    --accent-amber: #f59e0b;
+    --accent-amber-glow: rgba(245, 158, 11, 0.25);
+    --accent-blue: #38bdf8;
+    --accent-green: #10b981;
+    --accent-red: #ef4444;
+    
+    --monitor-bg: #030712;
+    --monitor-border: #334155;
+    --monitor-text: #f8fafc;
+    
+    --item-hover: rgba(51, 65, 85, 0.7);
+    --item-selected: rgba(245, 158, 11, 0.16);
+    --item-selected-border: #f59e0b;
+}
+
+[data-theme="light"] {
+    /* MODO CLARO */
+    --bg-app: #f1f5f9;
+    --bg-surface: #ffffff;
+    --bg-surface-subtle: #f8fafc;
+    --bg-input: #ffffff;
+    --border-color: #cbd5e1;
+    --border-subtle: #e2e8f0;
+    
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    
+    --accent-amber: #d97706;
+    --accent-amber-glow: rgba(217, 119, 6, 0.2);
+    --accent-blue: #0284c7;
+    --accent-green: #059669;
+    --accent-red: #dc2626;
+    
+    --monitor-bg: #0f172a;
+    --monitor-border: #1e293b;
+    --monitor-text: #ffffff;
+    
+    --item-hover: #f1f5f9;
+    --item-selected: #fef3c7;
+    --item-selected-border: #d97706;
+}
+
+/* Reset y estructura */
+* {
+    box-sizing: border-box;
+}
+
 body {
-    background-color: #18191c !important; /* Estilo nativo oscuro de OBS */
-    color: #e2e8f0;
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    min-height: 100vh;
+    background-color: var(--bg-app) !important;
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     margin: 0;
     padding: 0;
+    min-height: 100vh;
+    transition: background-color 0.25s ease, color 0.25s ease;
     user-select: none;
 }
 
@@ -20,67 +83,143 @@ body {
     overflow: hidden;
 }
 
-.dock-logo {
-    max-height: 32px;
-    width: auto;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+/* Cabecera Minimalista */
+.minimal-header {
+    background: transparent;
 }
 
-/* Indicador de transmisión EN VIVO (ON AIR) */
+.dock-logo {
+    max-height: 26px;
+    width: auto;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
+}
+
+.app-brand {
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -0.3px;
+    color: var(--text-primary);
+}
+
+/* Botones de Icono Minimalistas */
+.btn-icon-ghost {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    border-radius: 8px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.btn-icon-ghost:hover {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    border-color: var(--accent-amber);
+}
+
+.btn-icon-ghost.active {
+    background: var(--accent-amber-glow);
+    border-color: var(--accent-amber);
+    color: var(--accent-amber);
+}
+
+/* Indicador ON AIR Minimalista */
 .live-badge {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 5px 12px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
     border: 1px solid transparent;
+    transition: all 0.25s ease;
 }
 
 .badge-off {
-    background-color: rgba(100, 116, 139, 0.2);
-    color: #94a3b8;
-    border-color: rgba(100, 116, 139, 0.3);
+    background-color: var(--bg-surface);
+    color: var(--text-secondary);
+    border-color: var(--border-color);
 }
 
 .badge-off .live-dot {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background-color: #64748b;
+    background-color: var(--text-muted);
 }
 
 .badge-on {
-    background-color: rgba(220, 38, 38, 0.2);
-    color: #f87171;
-    border-color: rgba(239, 68, 68, 0.5);
-    box-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
+    background-color: rgba(16, 185, 129, 0.18);
+    color: #10b981;
+    border-color: rgba(16, 185, 129, 0.5);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
 }
 
 .badge-on .live-dot {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background-color: #ef4444;
-    box-shadow: 0 0 8px #ef4444;
+    background-color: #10b981;
+    box-shadow: 0 0 10px #10b981;
     animation: pulse-dot 1.5s infinite;
+}
+
+[data-theme="light"] .badge-on {
+    background-color: rgba(5, 150, 105, 0.14);
+    color: #059669;
+    border-color: rgba(5, 150, 105, 0.4);
+}
+
+[data-theme="light"] .badge-on .live-dot {
+    background-color: #059669;
+    box-shadow: 0 0 10px #059669;
 }
 
 @keyframes pulse-dot {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.85); }
+    50% { opacity: 0.4; transform: scale(0.85); }
 }
 
-/* Controles de Formulario */
-.form-select-sm, .form-control {
-    border-radius: 6px;
+/* Tarjetas Minimalistas */
+.minimal-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+/* Panel Colapsable de Ajustes de Estilo */
+#settingsCollapse {
+    background-color: var(--bg-surface-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Controles de Formulario Minimalistas */
+.form-select, .form-control {
+    background-color: var(--bg-input) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-primary) !important;
+    border-radius: 8px;
     font-size: 13px;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: all 0.2s ease;
 }
 
-.form-select-sm:focus, .form-control:focus {
-    background-color: #212429;
-    border-color: #f59e0b;
-    box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25);
-    color: #fff;
+.form-select:focus, .form-control:focus {
+    border-color: var(--accent-amber) !important;
+    box-shadow: 0 0 0 3px var(--accent-amber-glow) !important;
 }
 
-/* Dropdown de Autocompletado */
+/* Autocompletado */
 .autocomplete-dropdown {
     position: absolute;
     top: calc(100% + 4px);
@@ -88,96 +227,135 @@ body {
     right: 0;
     max-height: 220px;
     overflow-y: auto;
-    background-color: #1f232b;
-    border: 1px solid #3b4252;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     z-index: 1050;
     display: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .autocomplete-item {
-    padding: 8px 14px;
+    padding: 9px 14px;
     cursor: pointer;
     font-size: 13px;
-    color: #e2e8f0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-subtle);
     transition: background-color 0.15s ease;
 }
 
-.autocomplete-item:hover, .autocomplete-item.active {
-    background-color: #2d3340;
-    color: #f59e0b;
+.autocomplete-item:hover {
+    background-color: var(--item-hover);
+    color: var(--accent-amber);
 }
 
-/* Área de desplazamiento de los versículos */
+/* Barra de Controles Rápidos */
+.btn-panic {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: var(--accent-red);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 12.5px;
+    transition: all 0.2s ease;
+}
+
+.btn-panic:hover {
+    background-color: var(--accent-red);
+    color: #ffffff;
+    border-color: var(--accent-red);
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.35);
+}
+
+.btn-nav {
+    border-radius: 8px !important;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+}
+
+/* Lista de Versículos */
 .verses-scroll-area {
     overflow-y: auto;
     padding-right: 4px;
-    max-height: calc(100vh - 290px);
+    max-height: calc(100vh - 285px);
 }
 
 .verses-scroll-area::-webkit-scrollbar,
 .history-list::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
 }
 
 .verses-scroll-area::-webkit-scrollbar-thumb,
 .history-list::-webkit-scrollbar-thumb {
-    background: #374151;
+    background: var(--border-color);
     border-radius: 4px;
 }
 
-.verses-scroll-area::-webkit-scrollbar-thumb:hover,
-.history-list::-webkit-scrollbar-thumb:hover {
-    background: #4b5563;
-}
-
-/* Elemento de Versículo */
 .verse-item {
-    background-color: rgba(30, 41, 59, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background-color: var(--bg-surface-subtle);
+    border: 1px solid var(--border-subtle);
     border-left: 3px solid transparent;
-    border-radius: 6px;
+    border-radius: 8px;
     padding: 10px 14px;
-    margin-bottom: 8px;
+    margin-bottom: 7px;
     cursor: pointer;
     transition: all 0.2s ease;
     font-size: 14px;
-    line-height: 1.45;
+    line-height: 1.5;
 }
 
 .verse-item:hover {
-    background-color: rgba(51, 65, 85, 0.8);
-    border-color: rgba(255, 255, 255, 0.15);
+    background-color: var(--item-hover);
+    border-color: var(--border-color);
     transform: translateX(2px);
 }
 
 .verse-item.selected {
-    background-color: rgba(245, 158, 11, 0.18);
-    border-color: rgba(245, 158, 11, 0.6);
-    border-left: 4px solid #f59e0b;
-}
-
-.verse-item.selected .verse-num {
-    color: #f59e0b;
-    font-weight: bold;
+    background-color: var(--item-selected);
+    border-color: var(--item-selected-border);
+    border-left: 4px solid var(--item-selected-border);
 }
 
 .verse-num {
     font-weight: 700;
-    color: #94a3b8;
-    margin-right: 6px;
-    font-size: 12px;
+    color: var(--accent-amber);
+    margin-right: 7px;
+    font-size: 13px;
 }
 
 .verse-content {
-    color: #f1f5f9;
+    color: var(--text-primary);
 }
 
-/* Monitor y Vista Previa */
+/* MONITOR EN VIVO (VISIBILIDAD TOTAL DEL TEXTO) */
 .monitor-preview {
-    border: 1px solid #334155;
-    min-height: 80px;
+    background-color: var(--monitor-bg) !important;
+    border: 1px solid var(--monitor-border);
+    border-radius: 10px;
+    min-height: 90px;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.25);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.monitor-preview.is-live {
+    border-color: rgba(16, 185, 129, 0.7) !important;
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.2), inset 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+#monitor-citation {
+    color: var(--accent-amber);
+    font-weight: 800;
+    font-size: 13.5px;
+    letter-spacing: 0.2px;
+}
+
+#monitor-text {
+    color: var(--monitor-text) !important;
+    font-size: 13.5px;
+    line-height: 1.55;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* Historial Reciente */
@@ -187,25 +365,31 @@ body {
 }
 
 .history-item {
-    background-color: rgba(15, 23, 42, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 5px;
-    padding: 6px 10px;
+    background-color: var(--bg-surface-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    padding: 7px 10px;
     margin-bottom: 5px;
     cursor: pointer;
     font-size: 12px;
+    color: var(--text-primary);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: background 0.15s ease;
+    transition: all 0.15s ease;
 }
 
 .history-item:hover {
-    background-color: #1e293b;
-    border-color: #38bdf8;
-    color: #38bdf8;
+    background-color: var(--item-hover);
+    border-color: var(--accent-amber);
+    color: var(--accent-amber);
 }
 
-.dock-footer {
-    user-select: none;
+/* Slider de Contraste */
+.form-range::-webkit-slider-thumb {
+    background: var(--accent-amber);
+}
+
+.form-range:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem var(--accent-amber-glow);
 }

@@ -243,6 +243,7 @@ function getCurrentStyles() {
         fontFamily: $('#fontSelect').val(),
         theme: $('#themeSelect').val(),
         fontSize: $('#sizeSelect').val(),
+        textColor: $('#textColorSelect').val() || 'text-light',
         backgroundType: bgType,
         backgroundValue: bgValue,
         backgroundDarkness: bgDarkness
@@ -255,6 +256,7 @@ function broadcastStyles() {
     localStorage.setItem('selectedFont', styles.fontFamily);
     localStorage.setItem('selectedTheme', styles.theme);
     localStorage.setItem('selectedSize', styles.fontSize);
+    localStorage.setItem('selectedTextColor', styles.textColor);
     localStorage.setItem('selectedBgType', styles.backgroundType);
     localStorage.setItem('selectedBgValue', styles.backgroundValue);
     localStorage.setItem('selectedBgDarkness', styles.backgroundDarkness);
@@ -288,12 +290,12 @@ function updateMonitor(data) {
         $('#monitor-citation').text(data.citation);
         $('#monitor-text').text(data.text);
         $('#live-version-tag').text(data.version || currentVersion);
-        $('#monitor-box').addClass('border-warning');
+        $('#monitor-box').addClass('is-live');
     } else {
         $('#monitor-citation').text('Ningún versículo en pantalla');
         $('#monitor-text').text('Selecciona un verso para proyectarlo en el stream.');
         $('#live-version-tag').text('');
-        $('#monitor-box').removeClass('border-warning');
+        $('#monitor-box').removeClass('is-live');
     }
 }
 
@@ -647,7 +649,40 @@ $(async function () {
         console.error("Error al cargar versión inicial:", e);
     }
 
-    // 3. Restaurar configuraciones de estilo
+    // 3. Restaurar tema claro/oscuro del Dock
+    function setDockTheme(theme) {
+        $('html').attr('data-theme', theme);
+        localStorage.setItem('dockTheme', theme);
+        if (theme === 'light') {
+            $('#themeIcon').removeClass('bi-sun-fill').addClass('bi-moon-stars-fill');
+            $('#toggleThemeBtn').attr('title', 'Cambiar a Modo Oscuro');
+        } else {
+            $('#themeIcon').removeClass('bi-moon-stars-fill').addClass('bi-sun-fill');
+            $('#toggleThemeBtn').attr('title', 'Cambiar a Modo Claro');
+        }
+    }
+
+    const savedDockTheme = localStorage.getItem('dockTheme') || 'dark';
+    setDockTheme(savedDockTheme);
+
+    $('#toggleThemeBtn').on('click', function () {
+        const currentTheme = $('html').attr('data-theme') || 'dark';
+        const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        setDockTheme(nextTheme);
+    });
+
+    // Panel colapsable de ajustes
+    $('#toggleSettingsBtn').on('click', function () {
+        $('#settingsCollapse').slideToggle(180);
+        $(this).toggleClass('active');
+    });
+
+    $('#closeSettingsBtn').on('click', function () {
+        $('#settingsCollapse').slideUp(180);
+        $('#toggleSettingsBtn').removeClass('active');
+    });
+
+    // 4. Restaurar configuraciones de estilo
     const savedFont = localStorage.getItem('selectedFont');
     if (savedFont) $('#fontSelect').val(savedFont);
 
@@ -656,6 +691,9 @@ $(async function () {
 
     const savedSize = localStorage.getItem('selectedSize');
     if (savedSize) $('#sizeSelect').val(savedSize);
+
+    const savedTextColor = localStorage.getItem('selectedTextColor');
+    if (savedTextColor) $('#textColorSelect').val(savedTextColor);
 
     // Restaurar fondo personalizado
     const savedBgSelectVal = localStorage.getItem('selectedBgSelectVal');
@@ -732,7 +770,7 @@ $(async function () {
     });
 
     // Cambios de estilos y tipografía
-    $('#fontSelect, #themeSelect, #sizeSelect').on('change', function () {
+    $('#fontSelect, #themeSelect, #sizeSelect, #textColorSelect').on('change', function () {
         broadcastStyles();
     });
 

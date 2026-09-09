@@ -11,9 +11,11 @@ Cuenta con un **Panel de Control (Dock)** moderno para el operador y un **Overla
 - **Comunicación en Tiempo Real:** Sincronización instantánea mediante `BroadcastChannel` usando datos estructurados en JSON (soporta textos con comillas y diálogos sin romperse).
 - **Carga Rápida y Ligera (Lazy Loading):** Se carga `RV1960` por defecto y las demás versiones bíblicas solo se cargan si las seleccionas, ahorrando más de **40 MB de memoria RAM** en OBS.
 - **Soporte de Abreviaturas Bíblicas:** Puedes escribir `Jn 3:16`, `Gn 1:1`, `Sal 23`, `1 Co 13:4-8`, `Rom 8:28` o nombres completos.
-- **Overlay de Alto Contraste:** 
-  - Diseñado específicamente para video en vivo (fondo glassmorphism oscuro, borde dorado sutil, badge de versión y texto blanco con sombra tipográfica nítida).
-  - Soporta 3 temas: **Tercio Inferior (Lower-Third)**, **Tarjeta Centrada** y **Minimalista con Sombra**.
+- **Overlay de Alto Contraste y Fondos Personalizados:** 
+  - **Subida de Imágenes Propias:** El operador puede subir sus propias fotos o fondos desde el Dock (`.jpg`, `.png`, `.webp`) y se proyectan al instante en OBS.
+  - **Degradados Premium Incluidos:** Azul Noche Celestial, Dorado / Luz Cálida, Púrpura Real, Esmeralda Profundo o Vidrio Oscuro por defecto.
+  - **Control de Contraste y Oscurecimiento:** Control deslizante para regular la opacidad de la capa oscura sobre la imagen, garantizando que el texto blanco siempre sea perfectamente legible sobre cualquier cámara o imagen.
+  - Soporta 3 temas de posición: **Tercio Inferior (Lower-Third)**, **Tarjeta Centrada** y **Minimalista con Sombra**.
 - **Control "En el Aire" (On Air):** Indicador visual en el Dock para saber con certeza qué versículo está proyectándose en pantalla.
 - **Botón de Pánico / Limpiar Pantalla:** Oculta el versículo al instante con un solo clic o con la tecla `[Esc]`.
 - **Historial Reciente:** Registra los versículos citados durante el servicio para volver a proyectarlos con un clic.

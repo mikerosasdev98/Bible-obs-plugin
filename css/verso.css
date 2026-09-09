@@ -174,3 +174,20 @@ html, body {
 .size-large .verse-citation {
     font-size: 1.95em;
 }
+
+/* Modo de texto oscuro (para fondos claros o blancos) */
+#overlay-wrapper.text-color-dark .verse-text {
+    color: #0f172a !important;
+    text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 2px 8px rgba(255, 255, 255, 0.5) !important;
+}
+
+#overlay-wrapper.text-color-dark .verse-citation {
+    color: #b45309 !important;
+    text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8) !important;
+}
+
+#overlay-wrapper.text-color-dark .verse-version-badge {
+    background: rgba(0, 0, 0, 0.1);
+    color: #0f172a;
+    border-color: rgba(0, 0, 0, 0.25);
+}

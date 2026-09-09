@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscador de la Biblia - OBS Controller</title>
+    <title>OBS Bible Controller</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap-icons.min.css">
@@ -17,38 +17,50 @@
     <link rel="stylesheet" href="fonts/Raleway.css">
     <link rel="stylesheet" href="fonts/Poppins.css">
 </head>
-<body class="bg-dark text-light">
+<body>
 
-<div class="dock-container container-fluid p-2 p-md-3">
-    <!-- Header y Estado EN EL AIRE -->
-    <header class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom border-secondary">
+<div class="dock-container p-2 p-md-3">
+    <!-- Cabecera Minimalista -->
+    <header class="minimal-header d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom" style="border-color: var(--border-subtle) !important;">
         <div class="d-flex align-items-center gap-2">
             <img src="img/logo.png" alt="Logo" class="dock-logo">
-            <span class="fw-bold fs-6 text-white-50">OBS Bible Dock</span>
+            <span class="app-brand">OBS Bible</span>
         </div>
-        <div id="live-indicator" class="live-badge badge-off d-flex align-items-center gap-2 px-3 py-2 rounded-pill">
-            <span class="live-dot"></span>
-            <span id="live-status-text" class="fw-bold">OCULTO</span>
+
+        <div class="d-flex align-items-center gap-2">
+            <!-- Indicador ON AIR -->
+            <div id="live-indicator" class="live-badge badge-off">
+                <span class="live-dot"></span>
+                <span id="live-status-text">OCULTO</span>
+            </div>
+
+            <!-- Botón Desplegar Ajustes -->
+            <button id="toggleSettingsBtn" class="btn-icon-ghost" title="Ajustes de Fondo y Tipografía">
+                <i class="bi bi-sliders"></i>
+            </button>
+
+            <!-- Botón Toggle Modo Claro / Oscuro -->
+            <button id="toggleThemeBtn" class="btn-icon-ghost" title="Cambiar a Modo Claro / Oscuro">
+                <i class="bi bi-sun-fill" id="themeIcon"></i>
+            </button>
         </div>
     </header>
 
-    <!-- Barra de Búsqueda Principal -->
-    <div class="search-section card bg-secondary bg-opacity-25 border-secondary p-2 mb-2">
+    <!-- Panel Colapsable de Ajustes de Estilo y Fondo (Minimalista) -->
+    <div id="settingsCollapse" class="p-3 mb-2" style="display: none;">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="fw-bold small text-uppercase" style="color: var(--accent-amber); font-size: 11px;">
+                <i class="bi bi-palette me-1"></i> Personalización del Overlay
+            </span>
+            <button id="closeSettingsBtn" class="btn btn-sm btn-link p-0 text-decoration-none" style="color: var(--text-secondary); font-size: 11px;">
+                Cerrar ✕
+            </button>
+        </div>
+
         <div class="row g-2">
             <div class="col-6 col-md-3">
-                <label for="version" class="form-label form-label-sm text-secondary mb-1">Versión</label>
-                <select id="version" class="form-select form-select-sm bg-dark text-white border-secondary">
-                    <option value="RV1960" selected>RV1960</option>
-                    <option value="NVI">NVI</option>
-                    <option value="LBLA">LBLA</option>
-                    <option value="NTV">NTV</option>
-                    <option value="TLA">TLA</option>
-                    <option value="DHH">Dios Habla Hoy</option>
-                </select>
-            </div>
-            <div class="col-6 col-md-3">
-                <label for="fontSelect" class="form-label form-label-sm text-secondary mb-1">Tipografía</label>
-                <select id="fontSelect" class="form-select form-select-sm bg-dark text-white border-secondary">
+                <label for="fontSelect" class="form-label form-label-sm small mb-1" style="color: var(--text-secondary);">Tipografía</label>
+                <select id="fontSelect" class="form-select form-select-sm">
                     <option value="'Montserrat', sans-serif">Montserrat</option>
                     <option value="'Roboto', sans-serif">Roboto</option>
                     <option value="'Poppins', sans-serif">Poppins</option>
@@ -59,16 +71,23 @@
                 </select>
             </div>
             <div class="col-6 col-md-3">
-                <label for="themeSelect" class="form-label form-label-sm text-secondary mb-1">Tema Overlay</label>
-                <select id="themeSelect" class="form-select form-select-sm bg-dark text-white border-secondary">
+                <label for="themeSelect" class="form-label form-label-sm small mb-1" style="color: var(--text-secondary);">Posición / Modo</label>
+                <select id="themeSelect" class="form-select form-select-sm">
                     <option value="theme-lower-third">Tercio Inferior</option>
                     <option value="theme-card-center">Tarjeta Centrada</option>
                     <option value="theme-minimal">Minimalista Sombra</option>
                 </select>
             </div>
             <div class="col-6 col-md-3">
-                <label for="sizeSelect" class="form-label form-label-sm text-secondary mb-1">Tamaño Texto</label>
-                <select id="sizeSelect" class="form-select form-select-sm bg-dark text-white border-secondary">
+                <label for="textColorSelect" class="form-label form-label-sm small mb-1" style="color: var(--text-secondary);">Color Texto OBS</label>
+                <select id="textColorSelect" class="form-select form-select-sm">
+                    <option value="text-light" selected>Texto Blanco (Fondos oscuros)</option>
+                    <option value="text-dark">Texto Oscuro (Fondos claros)</option>
+                </select>
+            </div>
+            <div class="col-6 col-md-3">
+                <label for="sizeSelect" class="form-label form-label-sm small mb-1" style="color: var(--text-secondary);">Tamaño Texto</label>
+                <select id="sizeSelect" class="form-select form-select-sm">
                     <option value="size-small">Pequeño</option>
                     <option value="size-medium" selected>Mediano</option>
                     <option value="size-large">Grande</option>
@@ -76,14 +95,12 @@
             </div>
         </div>
 
-        <!-- Fila de Fondos Personalizados -->
-        <div class="row g-2 mt-1 pt-1 border-top border-secondary border-opacity-50 align-items-center">
+        <!-- Fila de Fondos -->
+        <div class="row g-2 mt-2 pt-2 border-top" style="border-color: var(--border-subtle) !important;">
             <div class="col-12 col-md-5">
-                <label for="bgSelect" class="form-label form-label-sm text-secondary mb-1">
-                    <i class="bi bi-palette"></i> Fondo del Versículo
-                </label>
+                <label for="bgSelect" class="form-label form-label-sm small mb-1" style="color: var(--text-secondary);">Fondo Personalizado</label>
                 <div class="d-flex gap-1">
-                    <select id="bgSelect" class="form-select form-select-sm bg-dark text-white border-secondary">
+                    <select id="bgSelect" class="form-select form-select-sm">
                         <option value="default">Por defecto (Vidrio Oscuro)</option>
                         <option value="gradient-blue">Azul Noche Celestial</option>
                         <option value="gradient-gold">Dorado / Luz Cálida</option>
@@ -98,9 +115,9 @@
                 </div>
             </div>
             <div class="col-8 col-md-5">
-                <label for="bgDarknessSlider" class="form-label form-label-sm text-secondary mb-1 d-flex justify-content-between">
-                    <span><i class="bi bi-brightness-medium"></i> Contraste / Oscuridad</span>
-                    <span id="bgDarknessLabel" class="text-white-50">65%</span>
+                <label for="bgDarknessSlider" class="form-label form-label-sm small mb-1 d-flex justify-content-between" style="color: var(--text-secondary);">
+                    <span>Oscurecimiento / Contraste</span>
+                    <span id="bgDarknessLabel" class="fw-bold" style="color: var(--accent-amber);">65%</span>
                 </label>
                 <input type="range" class="form-range" id="bgDarknessSlider" min="0.2" max="0.95" step="0.05" value="0.65">
             </div>
@@ -110,103 +127,114 @@
                 </button>
             </div>
         </div>
+    </div>
 
-        <div class="mt-2 position-relative">
-            <div class="input-group">
-                <span class="input-group-text bg-dark text-secondary border-secondary">
-                    <i class="bi bi-search"></i>
-                </span>
-                <input type="text" id="reference" class="form-control bg-dark text-white border-secondary" 
-                       placeholder="Ej: Jn 3:16, Rom 8:28, Salmos 23..." autocomplete="off">
-                <button id="searchBtn" class="btn btn-primary px-3" type="button">
-                    Buscar
-                </button>
+    <!-- Barra de Búsqueda Minimalista -->
+    <div class="minimal-card p-2 mb-2">
+        <div class="row g-2 align-items-center">
+            <div class="col-4 col-md-3">
+                <select id="version" class="form-select form-select-sm fw-bold">
+                    <option value="RV1960" selected>RV1960</option>
+                    <option value="NVI">NVI</option>
+                    <option value="LBLA">LBLA</option>
+                    <option value="NTV">NTV</option>
+                    <option value="TLA">TLA</option>
+                    <option value="DHH">DHH</option>
+                </select>
             </div>
-            <div id="autocomplete-list" class="autocomplete-dropdown list-group shadow"></div>
+            <div class="col-8 col-md-9 position-relative">
+                <div class="input-group input-group-sm">
+                    <input type="text" id="reference" class="form-control" 
+                           placeholder="Buscar versículo (ej: Jn 3:16, Sal 23...)" autocomplete="off">
+                    <button id="searchBtn" class="btn btn-primary px-3 fw-bold" type="button" style="background: var(--accent-amber); border-color: var(--accent-amber); color: #000;">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+                <div id="autocomplete-list" class="autocomplete-dropdown list-group shadow"></div>
+            </div>
         </div>
     </div>
 
-    <!-- Barra de Control Rápido en Vivo -->
-    <div class="quick-controls card bg-secondary bg-opacity-25 border-secondary p-2 mb-2">
-        <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center">
-            <!-- Botón de pánico / Clear -->
-            <button id="clearScreenBtn" class="btn btn-danger btn-sm px-3 d-flex align-items-center gap-1">
-                <i class="bi bi-eye-slash-fill"></i>
-                <span class="fw-bold">OCULTAR PANTALLA</span> (Esc)
+    <!-- Barra de Control en Vivo Minimalista -->
+    <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-2">
+        <!-- Botón de Pánico -->
+        <button id="clearScreenBtn" class="btn btn-panic d-flex align-items-center gap-2 px-3 py-1">
+            <i class="bi bi-eye-slash-fill"></i>
+            <span>OCULTAR PANTALLA</span>
+            <small class="opacity-75" style="font-size: 10px;">[Esc]</small>
+        </button>
+
+        <!-- Navegación Compacta -->
+        <div class="btn-group btn-group-sm">
+            <button id="prevChapterBtn" class="btn btn-outline-secondary btn-nav" title="Capítulo Anterior">
+                <i class="bi bi-chevron-double-left"></i> Cap
             </button>
-
-            <!-- Controles de navegación de versículos -->
-            <div class="btn-group btn-group-sm">
-                <button id="prevChapterBtn" class="btn btn-outline-warning" title="Capítulo Anterior">
-                    <i class="bi bi-chevron-double-left"></i> Cap. Ant.
-                </button>
-                <button id="prevVerseBtn" class="btn btn-warning" title="Versículo Anterior (Flecha Izquierda)">
-                    <i class="bi bi-arrow-left"></i> Verso Ant.
-                </button>
-                <button id="nextVerseBtn" class="btn btn-success" title="Versículo Siguiente (Flecha Derecha)">
-                    Verso Sig. <i class="bi bi-arrow-right"></i>
-                </button>
-                <button id="nextChapterBtn" class="btn btn-outline-success" title="Siguiente Capítulo">
-                    Cap. Sig. <i class="bi bi-chevron-double-right"></i>
-                </button>
-            </div>
+            <button id="prevVerseBtn" class="btn btn-outline-secondary btn-nav" title="Versículo Anterior (←)">
+                <i class="bi bi-arrow-left"></i> Ant
+            </button>
+            <button id="nextVerseBtn" class="btn btn-outline-secondary btn-nav" title="Versículo Siguiente (→)">
+                Sig <i class="bi bi-arrow-right"></i>
+            </button>
+            <button id="nextChapterBtn" class="btn btn-outline-secondary btn-nav" title="Siguiente Capítulo">
+                Cap <i class="bi bi-chevron-double-right"></i>
+            </button>
         </div>
     </div>
 
-    <!-- Contenedor Principal: Resultados y Versículo en el Aire -->
-    <div class="row g-2 flex-grow-1">
-        <!-- Lista de versículos del capítulo/búsqueda -->
-        <div class="col-12 col-lg-8 d-flex flex-column">
-            <div class="card bg-secondary bg-opacity-25 border-secondary flex-grow-1 d-flex flex-column p-2 overflow-hidden">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                    <span id="chapter-title" class="fw-bold text-warning small text-uppercase">Resultados</span>
-                    <span class="text-white-50" style="font-size: 11px;">Haz clic en un versículo para proyectar</span>
+    <!-- Contenido Principal: Versículos y Monitor -->
+    <div class="row g-2 flex-grow-1 overflow-hidden">
+        <!-- Lista de versículos -->
+        <div class="col-12 col-lg-8 d-flex flex-column h-100">
+            <div class="minimal-card flex-grow-1 d-flex flex-column p-2 overflow-hidden">
+                <div class="d-flex justify-content-between align-items-center mb-1 pb-1 border-bottom" style="border-color: var(--border-subtle) !important;">
+                    <span id="chapter-title" class="fw-bold small text-uppercase" style="color: var(--accent-amber); font-size: 11px;">Capítulo</span>
+                    <span style="color: var(--text-muted); font-size: 11px;">Clic para proyectar</span>
                 </div>
                 <div id="result-container" class="verses-scroll-area flex-grow-1">
                     <div id="result" class="verses-list">
-                        <div class="text-center text-muted p-4">
-                            <i class="bi bi-book fs-1 d-block mb-2"></i>
-                            Escribe una referencia arriba (ej: <code>Jn 3:16</code> o <code>Sal 23</code>) para comenzar.
+                        <div class="text-center py-4" style="color: var(--text-muted);">
+                            <i class="bi bi-book fs-2 d-block mb-2 opacity-50"></i>
+                            Escribe una referencia (ej: <code>Jn 3:16</code> o <code>Sal 23</code>) para proyectar.
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Panel Lateral: Versículo en Vivo e Historial Reciente -->
-        <div class="col-12 col-lg-4 d-flex flex-column gap-2">
-            <!-- Monitor de lo que está al aire -->
-            <div class="card bg-dark border-secondary p-2">
+        <!-- Panel Lateral: Monitor en Vivo e Historial -->
+        <div class="col-12 col-lg-4 d-flex flex-column gap-2 h-100">
+            <!-- Monitor en Vivo (ALTO CONTRASTE GARANTIZADO) -->
+            <div class="minimal-card p-2">
                 <div class="d-flex justify-content-between align-items-center mb-1">
-                    <span class="text-secondary fw-bold" style="font-size: 11px;">EN PANTALLA (OBS)</span>
-                    <span id="live-version-tag" class="badge bg-secondary" style="font-size: 10px;"></span>
+                    <span class="fw-bold" style="color: var(--text-secondary); font-size: 11px;">EN PANTALLA (OBS)</span>
+                    <span id="live-version-tag" class="badge" style="background: var(--border-color); color: var(--text-primary); font-size: 10px;"></span>
                 </div>
-                <div id="monitor-box" class="monitor-preview p-2 rounded bg-black text-light">
-                    <div id="monitor-citation" class="fw-bold text-warning small mb-1">Ningún versículo en pantalla</div>
-                    <div id="monitor-text" class="text-muted" style="font-size: 13px; max-height: 90px; overflow-y: auto;">
+                <div id="monitor-box" class="monitor-preview p-2">
+                    <div id="monitor-citation" class="mb-1">Ningún versículo en pantalla</div>
+                    <div id="monitor-text">
                         Selecciona un verso para proyectarlo en el stream.
                     </div>
                 </div>
             </div>
 
             <!-- Historial Reciente -->
-            <div class="card bg-secondary bg-opacity-25 border-secondary p-2 flex-grow-1 d-flex flex-column overflow-hidden">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                    <span class="text-secondary fw-bold" style="font-size: 11px;">HISTORIAL RECIENTE</span>
-                    <button id="clearHistoryBtn" class="btn btn-link text-white-50 p-0 text-decoration-none" style="font-size: 10px;">
+            <div class="minimal-card p-2 flex-grow-1 d-flex flex-column overflow-hidden">
+                <div class="d-flex justify-content-between align-items-center mb-1 pb-1 border-bottom" style="border-color: var(--border-subtle) !important;">
+                    <span class="fw-bold" style="color: var(--text-secondary); font-size: 11px;">HISTORIAL RECIENTE</span>
+                    <button id="clearHistoryBtn" class="btn btn-link p-0 text-decoration-none" style="color: var(--text-muted); font-size: 10px;">
                         Limpiar
                     </button>
                 </div>
-                <div id="recent-history-list" class="history-list flex-grow-1 overflow-auto">
-                    <div class="text-muted text-center py-3" style="font-size: 12px;">Sin versículos recientes</div>
+                <div id="recent-history-list" class="history-list flex-grow-1">
+                    <div class="text-center py-3" style="color: var(--text-muted); font-size: 12px;">Sin versículos recientes</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="dock-footer mt-2 pt-2 border-top border-secondary text-center text-white-50">
-        <small style="font-size: 10px;">Atajos: <strong>[← / →]</strong> Navegar versículos | <strong>[Espacio]</strong> Proyectar/Ocultar | <strong>[Esc]</strong> Ocultar</small>
+    <!-- Footer Minimalista -->
+    <footer class="mt-2 pt-1 text-center" style="color: var(--text-muted); font-size: 10.5px;">
+        <span>Atajos: <strong>[← / →]</strong> Navegar | <strong>[Espacio]</strong> En Vivo | <strong>[Esc]</strong> Ocultar</span>
     </footer>
 </div>
 

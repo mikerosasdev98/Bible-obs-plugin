@@ -20,6 +20,9 @@ function loadSavedSettings() {
     const savedSize = localStorage.getItem("selectedSize") || "size-medium";
     setSize(savedSize);
 
+    const savedTextColor = localStorage.getItem("selectedTextColor") || "text-light";
+    setTextColor(savedTextColor);
+
     const savedBgType = localStorage.getItem("selectedBgType") || "default";
     const savedBgValue = localStorage.getItem("selectedBgValue") || "";
     const savedBgDarkness = localStorage.getItem("selectedBgDarkness") || "0.65";
@@ -34,6 +37,14 @@ function setTheme(theme) {
 function setSize(size) {
     overlayWrapper.classList.remove("size-small", "size-medium", "size-large");
     overlayWrapper.classList.add(size);
+}
+
+function setTextColor(colorMode) {
+    if (colorMode === 'text-dark') {
+        overlayWrapper.classList.add('text-color-dark');
+    } else {
+        overlayWrapper.classList.remove('text-color-dark');
+    }
 }
 
 function applyBackground(type, value, darkness) {
@@ -77,6 +88,9 @@ function displayVerse(data) {
     }
     if (data.fontSize) {
         setSize(data.fontSize);
+    }
+    if (data.textColor) {
+        setTextColor(data.textColor);
     }
     if (data.backgroundType) {
         applyBackground(data.backgroundType, data.backgroundValue, data.backgroundDarkness);
@@ -126,6 +140,7 @@ function handleMessage(payload) {
             if (data.fontFamily) document.body.style.fontFamily = data.fontFamily;
             if (data.theme) setTheme(data.theme);
             if (data.fontSize) setSize(data.fontSize);
+            if (data.textColor) setTextColor(data.textColor);
             if (data.backgroundType) {
                 applyBackground(data.backgroundType, data.backgroundValue, data.backgroundDarkness);
             }
@@ -160,6 +175,8 @@ window.addEventListener("storage", function (event) {
         const savedBgValue = localStorage.getItem("selectedBgValue") || "";
         const savedBgDarkness = localStorage.getItem("selectedBgDarkness") || "0.65";
         applyBackground(savedBgType, savedBgValue, savedBgDarkness);
+    } else if (event.key === "selectedTextColor") {
+        setTextColor(event.newValue || "text-light");
     }
 });
 
