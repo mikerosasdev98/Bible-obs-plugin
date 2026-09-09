@@ -7,7 +7,7 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Copiar todos los archivos web del proyecto
 COPY . /usr/share/nginx/html
 
-# Exponer el puerto HTTP estándar
-EXPOSE 80
+# Exponer puertos HTTP (80 estándar y 3000 predeterminado en Coolify)
+EXPOSE 80 3000
 
 CMD ["nginx", "-g", "daemon off;"]
