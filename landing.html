@@ -381,19 +381,66 @@
                     Ofrenda seleccionada: <strong id="selectedAmountDisplay" style="color: var(--amber-400); font-size: 18px;">$100 MXN</strong>
                 </p>
 
-                <!-- Botones de Ofrenda Mercado Pago / PayPal -->
-                <div class="payment-buttons">
-                    <button onclick="handleDonation('mercadopago')" class="btn-mercadopago">
-                        <i class="bi bi-wallet2"></i> Ofrendar con Mercado Pago
-                    </button>
-                    <button onclick="handleDonation('paypal')" class="btn-paypal">
+                <!-- Botones de Ofrenda: PayPal y Transferencia SPEI -->
+                <div class="payment-buttons" style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+                    <button onclick="handleDonation('paypal')" class="btn-paypal" style="flex: 1; min-width: 220px; justify-content: center; padding: 15px 24px;">
                         <i class="bi bi-paypal"></i> Ofrendar con PayPal
+                    </button>
+                    <button onclick="toggleSpeiDetails()" class="btn-mercadopago" id="speiToggleBtn" style="flex: 1; min-width: 220px; justify-content: center; padding: 15px 24px;">
+                        <i class="bi bi-bank2"></i> Transferencia SPEI (México)
                     </button>
                 </div>
 
-                <small style="display: block; margin-top: 16px; color: var(--text-muted); font-size: 12px;">
-                    Acepta tarjetas de débito/crédito, transferencias SPEI, saldo Mercado Pago o PayPal internacional.
+                <small style="display: block; margin-top: 14px; color: var(--text-muted); font-size: 12px;">
+                    Acepta PayPal (internacional / tarjetas) y Transferencia SPEI en México sin comisiones (Mercado Pago).
                 </small>
+
+                <!-- Tarjeta Desplegable de Datos Bancarios SPEI (Mercado Pago W) -->
+                <div id="speiDetailsCard" style="display: none; margin-top: 24px; background: rgba(0, 158, 227, 0.05); border: 1px solid rgba(0, 158, 227, 0.3); border-radius: 18px; padding: 24px; text-align: left;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(0, 158, 227, 0.15); display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-bank2" style="font-size: 18px; color: #38bdf8;"></i>
+                            </div>
+                            <div>
+                                <strong style="display: block; font-size: 15px; color: #fff;">Datos para Transferencia Bancaria SPEI</strong>
+                                <span style="font-size: 12px; color: var(--text-muted);">Transfiere desde cualquier app bancaria en México (BBVA, Nu, Banamex, Mercado Pago, etc.)</span>
+                            </div>
+                        </div>
+                        <span style="background: rgba(0, 158, 227, 0.2); color: #38bdf8; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px;">
+                            SPEI / Dimo®
+                        </span>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 18px;">
+                        <div>
+                            <span style="display: block; font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Beneficiario</span>
+                            <strong style="color: #fff; font-size: 14px;">Jose Miguel Rosas Jimenez</strong>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Institución / Banco</span>
+                            <strong style="color: #fff; font-size: 14px;">Mercado Pago W</strong>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Celular vinculado (Dimo®)</span>
+                            <strong style="color: #fff; font-size: 14px;">77 1434 9366</strong>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Ciudad y Estado</span>
+                            <strong style="color: #fff; font-size: 14px;">Mineral De La Reforma, Hgo.</strong>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--bg-dark); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;">
+                        <div>
+                            <span style="display: block; font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">CLABE Interbancaria (18 dígitos)</span>
+                            <span id="speiClabeNumber" style="font-family: monospace; font-size: 18px; font-weight: 800; color: var(--amber-400); letter-spacing: 1px;">722969010516833002</span>
+                        </div>
+                        <button onclick="copySpeiClabe()" id="btnCopyClabe" style="background: rgba(245, 158, 11, 0.12); color: var(--amber-400); border: 1px solid var(--amber-400); padding: 10px 18px; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s;">
+                            <i class="bi bi-clipboard" id="copyClabeIcon"></i> <span id="copyClabeText">Copiar CLABE</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -456,25 +503,34 @@
         }
 
         function handleDonation(gateway) {
-            const amt = currentAmount || 50;
-            if (gateway === 'mercadopago') {
-                // Enlaces de Mercado Pago (puedes agregar los de otros montos aquí)
-                const mpLinks = {
-                    100: 'https://mpago.la/1WRaQUv'
-                };
-                const mpUrl = mpLinks[amt] || 'https://mpago.la/1WRaQUv';
-                const confirmRedirect = confirm(`Estás a punto de sembrar una ofrenda de $${amt} MXN con Mercado Pago. ¿Deseas continuar?`);
-                if (confirmRedirect) {
-                    window.open(mpUrl, '_blank');
-                }
-            } else if (gateway === 'paypal') {
-                // Enlace directo de PayPal oficial
-                const ppUrl = `https://paypal.me/miguelrosas3303/${amt}MXN`;
-                const confirmRedirect = confirm(`Estás a punto de sembrar una ofrenda de $${amt} MXN con PayPal. ¿Deseas continuar?`);
-                if (confirmRedirect) {
-                    window.open(ppUrl, '_blank');
-                }
+            const amt = currentAmount || 100;
+            const ppUrl = `https://paypal.me/miguelrosas3303/${amt}MXN`;
+            window.open(ppUrl, '_blank');
+        }
+
+        function toggleSpeiDetails() {
+            const card = document.getElementById('speiDetailsCard');
+            const isHidden = card.style.display === 'none' || card.style.display === '';
+            card.style.display = isHidden ? 'block' : 'none';
+            if (isHidden) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
+        }
+
+        function copySpeiClabe() {
+            const clabe = '722969010516833002';
+            navigator.clipboard.writeText(clabe).then(() => {
+                const btnText = document.getElementById('copyClabeText');
+                const btnIcon = document.getElementById('copyClabeIcon');
+                btnText.textContent = '¡Copiado!';
+                btnIcon.className = 'bi bi-check-lg';
+                setTimeout(() => {
+                    btnText.textContent = 'Copiar CLABE';
+                    btnIcon.className = 'bi bi-clipboard';
+                }, 2500);
+            }).catch(err => {
+                console.error('Error al copiar CLABE:', err);
+            });
         }
 
         function switchInstallTab(tab) {
