@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="pageGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="64" height="64" rx="16" fill="#090d16"/>
+  <rect width="60" height="60" x="2" y="2" rx="14" fill="none" stroke="url(#gold)" stroke-width="2" opacity="0.7"/>
+
+  <!-- Cubierta de la Biblia -->
+  <path d="M 8 48 C 18 43 28 43 32 46 C 36 43 46 43 56 48 L 56 16 C 46 11 36 11 32 14 C 28 11 18 11 8 16 Z" 
+        fill="#78350f" stroke="#fbbf24" stroke-width="1.5"/>
+
+  <!-- Páginas Izquierdas -->
+  <path d="M 32 44 C 27 41 18 41 10 45 L 10 17 C 18 13 27 13 32 16 Z" 
+        fill="url(#pageGrad)"/>
+  
+  <!-- Páginas Derechas -->
+  <path d="M 32 44 C 37 41 46 41 54 45 L 54 17 C 46 13 37 13 32 16 Z" 
+        fill="#ffffff"/>
+
+  <!-- Sombra central del lomo -->
+  <line x1="32" y1="15" x2="32" y2="44" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <!-- Cinta dorada colgante -->
+  <path d="M 30.5 14 L 33.5 14 L 33.5 53 L 32 50 L 30.5 53 Z" 
+        fill="url(#gold)"/>
+
+  <!-- Cruz dorada página izquierda -->
+  <path d="M 21 22 L 21 34 M 16 26 L 26 26" 
+        stroke="#d97706" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Líneas de texto bíblico página derecha -->
+  <line x1="37" y1="23" x2="49" y2="23" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+  <line x1="37" y1="29" x2="49" y2="29" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+  <line x1="37" y1="35" x2="45" y2="35" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+</svg>
